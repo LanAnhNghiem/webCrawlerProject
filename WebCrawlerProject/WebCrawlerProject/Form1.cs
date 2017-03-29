@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using HtmlAgilityPack;
 
 namespace WebCrawlerProject
 {
@@ -82,5 +83,24 @@ namespace WebCrawlerProject
             }
         }
 
+
+        // Loading content from HTML
+        private string getContent(string link)
+        {
+            HtmlWeb web = new HtmlWeb();
+            HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+
+            try
+            {
+                doc = web.Load(link);
+            }
+            catch
+            {
+                doc = web.Load("http://" + link);
+            }
+
+            string content = doc.DocumentNode.SelectSingleNode("//body").InnerText;
+            return content;
+        }
     }
 }
