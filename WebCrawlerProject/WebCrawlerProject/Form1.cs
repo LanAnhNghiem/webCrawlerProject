@@ -87,19 +87,24 @@ namespace WebCrawlerProject
         // Loading content from HTML
         private string getContent(string link)
         {
+            string content = "";
             HtmlWeb web = new HtmlWeb();
             HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
 
             try
             {
-                doc = web.Load(link);
+                if(link.Contains("https://") || link.Contains("http://"))
+                    doc = web.Load(link);
+                else
+                    doc = web.Load("http://" + link);                    
             }
             catch
             {
-                doc = web.Load("http://" + link);
+                return content;
             }
 
-            string content = doc.DocumentNode.SelectSingleNode("//body").InnerText;
+            content = doc.DocumentNode.SelectSingleNode("//body").InnerText;
+            
             return content;
         }
     }
