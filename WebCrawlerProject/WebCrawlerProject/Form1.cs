@@ -104,9 +104,7 @@ namespace WebCrawlerProject
                     HtmlAgilityPack.HtmlDocument doc = web.Load(listLinks[i]);
                     String content_ = doc.DocumentNode.InnerHtml;
                     string[] pattern = new string[] { @"<script[^>]*>[\s\S]*?</script>", @"<style[^>]*>[\s\S]*?</style>", @"<!--[\s\S]*?-->", @"<form[^>]*>[\s\S]*?</form>" };
-                    //@"<meta name[^>]*>[\s\S]*?/>"};
                     var regex = new Regex(string.Join("|", pattern), RegexOptions.IgnoreCase);
-                    //Regex rRemScript = new Regex(@"<script[^>]*>[\s\S]*?</script>");
                     content = regex.Replace(content_, "");
                     doc.LoadHtml(content);
                     content = doc.DocumentNode.SelectSingleNode("//div[contains(@class,'content')] | //p").InnerText;
