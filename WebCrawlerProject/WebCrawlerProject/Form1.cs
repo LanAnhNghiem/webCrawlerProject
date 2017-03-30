@@ -106,7 +106,7 @@ namespace WebCrawlerProject
 
             foreach (HtmlNode p in doc.DocumentNode.Descendants("p").ToArray())
             {
-                content += p.InnerText;
+                content += p.InnerText + "\n";
             }
             
             content = Regex.Replace(content, "&nbsp;", "");
