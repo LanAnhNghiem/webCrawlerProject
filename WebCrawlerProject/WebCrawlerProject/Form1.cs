@@ -7,11 +7,13 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HtmlAgilityPack;
 using System.Text.RegularExpressions;
+using System.Data.SqlClient;
 
 namespace WebCrawlerProject
 {
@@ -42,6 +44,7 @@ namespace WebCrawlerProject
         {
             String link;
             link = "https://www.google.com.vn/#q=" + textBox1.Text + "&num=20";
+
             webBrowser1.Navigate(link);
             tm = new System.Windows.Forms.Timer();
             tm.Interval = 3000;
@@ -92,7 +95,6 @@ namespace WebCrawlerProject
         {
             List<string> contents = new List<string>();
             String content = "";
-            String allContent = "";
             FileInfo file = new FileInfo("E:\\info.txt");
             StreamWriter text = file.CreateText();
             for (int i = 0; i < listLinks.Count; i++)
@@ -117,10 +119,11 @@ namespace WebCrawlerProject
                 contents.Add(content);
                 text.WriteLine(content);
                 text.WriteLine(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-            
+
             }
-            
+
         }
+
 
     }
 }

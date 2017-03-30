@@ -10,3 +10,14 @@ E:\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\obj\Debug\WebCrawlerPro
 E:\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\HtmlAgilityPack.dll
 E:\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\HtmlAgilityPack.pdb
 E:\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\HtmlAgilityPack.xml
+E:\DoAnCNPMCS\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\WebCrawlerProject.exe.config
+E:\DoAnCNPMCS\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\obj\Debug\WebCrawlerProject.exe
+E:\DoAnCNPMCS\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\obj\Debug\WebCrawlerProject.pdb
+E:\DoAnCNPMCS\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\WebCrawlerProject.exe
+E:\DoAnCNPMCS\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\WebCrawlerProject.pdb
+E:\DoAnCNPMCS\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\HtmlAgilityPack.pdb
+E:\DoAnCNPMCS\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\HtmlAgilityPack.xml
+E:\DoAnCNPMCS\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\obj\Debug\WebCrawlerProject.csprojResolveAssemblyReference.cache
+E:\DoAnCNPMCS\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\obj\Debug\WebCrawlerProject.Form1.resources
+E:\DoAnCNPMCS\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\obj\Debug\WebCrawlerProject.Properties.Resources.resources
+E:\DoAnCNPMCS\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\obj\Debug\WebCrawlerProject.csproj.GenerateResource.Cache
