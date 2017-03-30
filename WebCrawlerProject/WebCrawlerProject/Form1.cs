@@ -110,6 +110,7 @@ namespace WebCrawlerProject
             }
             
             content = Regex.Replace(content, "&nbsp;", "");
+            content = Regex.Replace(content, "&sdot;", "");
             
             return content;
         }
