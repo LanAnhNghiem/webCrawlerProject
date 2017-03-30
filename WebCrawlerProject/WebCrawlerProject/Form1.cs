@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -42,6 +43,7 @@ namespace WebCrawlerProject
         {
             String link;
             link = "https://www.google.com.vn/#q=" + textBox1.Text + "&num=20";
+
             webBrowser1.Navigate(link);
             tm = new System.Windows.Forms.Timer();
             tm.Interval = 3000;
@@ -111,7 +113,6 @@ namespace WebCrawlerProject
                     doc.LoadHtml(content);
                     content = doc.DocumentNode.SelectSingleNode("//div[contains(@class,'content')] | //p").InnerText;
                 }
-
                 catch (Exception ex)
                 {
                     //MessageBox.Show(ex.Message);
@@ -121,6 +122,7 @@ namespace WebCrawlerProject
                 text.WriteLine(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
             
             }
+
             
         }
 
