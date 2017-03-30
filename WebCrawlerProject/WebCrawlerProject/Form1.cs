@@ -103,7 +103,7 @@ namespace WebCrawlerProject
                 return content;
             }
 
-            foreach (var p in doc.DocumentNode.Descendants("p").ToArray())
+            foreach (HtmlNode p in doc.DocumentNode.Descendants("p").ToArray())
             {
                 content += p.InnerText;
             }
