@@ -110,48 +110,17 @@ namespace WebCrawlerProject
                     content = regex.Replace(content_, "");
                     doc.LoadHtml(content);
                     content = doc.DocumentNode.SelectSingleNode("//div[contains(@class,'content')] | //p").InnerText;
-
-                    //nga dùng cái này để viết nội dung xuống file một lần
-                    allContent = allContent + "\n" + content; 
                 }
+
                 catch (Exception ex)
                 {
                     //MessageBox.Show(ex.Message);
                 }
-              /*  contents.Add(content);
+                contents.Add(content);
                 text.WriteLine(content);
-                text.WriteLine(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");*/
-            
-            
+                text.WriteLine(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+
             }
-
-            text.WriteLine(allContent);
-            text.Close();//đóng file
-       /*     try
-            {
-
-                SqlConnection connect = new SqlConnection();
-                connect.ConnectionString = @"Data Source=THUYNGA\MISASME2015;Initial Catalog=CNPMCS;Integrated Security=True";
-
-              
-                string sql = "insert into DATA (chude,noidung) values (N'"+textBox1.Text+"',N'" +allContent+"')" ;
-    
-                connect.Open();
-               
-                SqlCommand command_insert = new SqlCommand(sql, connect);
-                command_insert.ExecuteNonQuery();
-            
-                connect.Close();
-                connect.Dispose();
-            }
-            catch(Exception ex)
-            {
-
-                MessageBox.Show(ex.Data.ToString());
-            }
-            */
-           
-
 
         }
 
