@@ -40,7 +40,7 @@ namespace WebCrawlerProject
         private void loadingPage()
         {
             String link;
-            link = "https://www.google.com.vn/#q=" + textBox1.Text + "&num=200";
+            link = "https://www.google.com.vn/#q=" + textBox1.Text + "&num=10";
             webBrowser1.Navigate(link);
             tm = new System.Windows.Forms.Timer();
             tm.Interval = 2000;
