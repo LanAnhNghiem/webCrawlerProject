@@ -103,7 +103,12 @@ namespace WebCrawlerProject
                 return content;
             }
 
-            content = doc.DocumentNode.SelectSingleNode("//body").InnerText;
+            foreach (var p in doc.DocumentNode.Descendants("p").ToArray())
+            {
+                content += p.InnerText;
+            }
+            
+            content = Regex.Replace(content, "&nbsp;", "");
             
             return content;
         }
