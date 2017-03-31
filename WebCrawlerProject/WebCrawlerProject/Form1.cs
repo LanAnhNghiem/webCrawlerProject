@@ -93,30 +93,14 @@ namespace WebCrawlerProject
         
         
         
-        private string editText(HtmlAgilityPack.HtmlDocument doc)
+        private string getText(HtmlAgilityPack.HtmlDocument doc)
         {
             string text = "";
-
-            /*
-            string HTML = doc.DocumentNode.InnerHtml;
-            string[] pattern = new string[] { @"<script[^>]*>[\s\S]*?</script>", @"<style[^>]*>[\s\S]*?</style>", @"<!--[\s\S]*?-->", @"<form[^>]*>[\s\S]*?</form>" };
-            Regex regex = new Regex(string.Join("|", pattern), RegexOptions.IgnoreCase);
-            HTML = regex.Replace(HTML, "");
-            doc.LoadHtml(HTML);
-            text = doc.DocumentNode.SelectSingleNode("//div[contains(@class,'content')] | //p").InnerText;
-            */
-
-
 
             foreach (HtmlNode p in doc.DocumentNode.Descendants("p").ToArray())
             {
                 text += p.InnerText + " ";
             }
-
-            // Xoa ky tu rac
-            string[] pattern = new string[] { @"&nbsp;", @"&sdot;", @"&gt;" };  // Bo sung them
-            Regex regex = new Regex(string.Join("|", pattern), RegexOptions.IgnoreCase);
-            text = regex.Replace(text, "");
 
             return text;
         }
@@ -127,15 +111,33 @@ namespace WebCrawlerProject
         {
             string text = "";
             string content = "";
-            StreamWriter sw = new StreamWriter(@"D:\\info.txt", false);
+            StreamWriter sw = new StreamWriter(@"E:\\info.txt", false);
+            HtmlWeb web = new HtmlWeb();
+            HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+
             for (int i = 0; i < listLinks.Count; i++)
             {
                 //url = System.Uri.UnescapeDataString(listLinks[i]);
                 try
                 {
-                    HtmlWeb web = new HtmlWeb();
-                    HtmlAgilityPack.HtmlDocument doc = web.Load(listLinks[i]);
-                    text = editText(doc);
+                    try
+                    {
+                        if (listLinks[i].Contains("https://") || listLinks[i].Contains("http://"))
+                            doc = web.Load(listLinks[i]);
+                        else
+                            doc = web.Load("http://" + listLinks[i]);
+                    }
+                    catch
+                    {
+                        content += "";
+                    }
+
+                    string HTML = doc.DocumentNode.InnerHtml;
+                    string[] pattern = new string[] { @"<script[^>]*>[\s\S]*?</script>", @"<style[^>]*>[\s\S]*?</style>", @"<!--[\s\S]*?-->", @"<form[^>]*>[\s\S]*?</form>" };
+                    Regex regex = new Regex(string.Join("|", pattern), RegexOptions.IgnoreCase);
+                    HTML = regex.Replace(HTML, "");
+                    doc.LoadHtml(HTML);
+                    text = getText(doc);
                 }
                 catch (Exception ex)
                 {
