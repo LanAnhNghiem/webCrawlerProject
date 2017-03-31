@@ -129,9 +129,9 @@ namespace WebCrawlerProject
                     doc = web.Load(listLinks[i]);                    
                     text = getText(doc);                    
                 }
-                catch (Exception ex)
+                catch
                 {
-                    //MessageBox.Show(ex.Message);
+                    text = "";
                 }
 
                 content += text + "\r\n\n-------------------------------------------------------------------------------\r\n\n";                
