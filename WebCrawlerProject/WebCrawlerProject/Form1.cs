@@ -96,7 +96,13 @@ namespace WebCrawlerProject
         private string getText(HtmlAgilityPack.HtmlDocument doc)
         {
             string text = "";
-
+            
+            string HTML = doc.DocumentNode.InnerHtml;
+            string[] pattern = new string[] { @"<script[^>]*>[\s\S]*?</script>", @"<style[^>]*>[\s\S]*?</style>", @"<!--[\s\S]*?-->", @"<form[^>]*>[\s\S]*?</form>" };
+            Regex regex = new Regex(string.Join("|", pattern), RegexOptions.IgnoreCase);
+            HTML = regex.Replace(HTML, "");
+            doc.LoadHtml(HTML);
+            
             foreach (HtmlNode p in doc.DocumentNode.Descendants("p").ToArray())
             {
                 text += p.InnerText + " ";
@@ -129,15 +135,11 @@ namespace WebCrawlerProject
                     }
                     catch
                     {
-                        content += "";
+                        //
                     }
 
-                    string HTML = doc.DocumentNode.InnerHtml;
-                    string[] pattern = new string[] { @"<script[^>]*>[\s\S]*?</script>", @"<style[^>]*>[\s\S]*?</style>", @"<!--[\s\S]*?-->", @"<form[^>]*>[\s\S]*?</form>" };
-                    Regex regex = new Regex(string.Join("|", pattern), RegexOptions.IgnoreCase);
-                    HTML = regex.Replace(HTML, "");
-                    doc.LoadHtml(HTML);
                     text = getText(doc);
+                    
                 }
                 catch (Exception ex)
                 {
