@@ -42,7 +42,7 @@ namespace WebCrawlerProject
         private void loadingPage()
         {
             String link;
-            link = "https://www.google.com.vn/#q=" + textBox1.Text + "&num=20";
+            link = "https://www.google.com.vn/#q=" + textBox1.Text + "&num=10";
 
             webBrowser1.Navigate(link);
             tm = new System.Windows.Forms.Timer();
@@ -114,7 +114,7 @@ namespace WebCrawlerProject
             }
 
             // Xoa ky tu rac
-            string[] pattern = new string[] { @"&nbsp;", @"&sdot;", @"&gt;" };  
+            string[] pattern = new string[] { @"&nbsp;", @"&sdot;", @"&gt;" };  // Bo sung them
             Regex regex = new Regex(string.Join("|", pattern), RegexOptions.IgnoreCase);
             text = regex.Replace(text, "");
 
