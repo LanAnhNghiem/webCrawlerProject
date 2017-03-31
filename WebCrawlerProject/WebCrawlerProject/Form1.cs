@@ -77,7 +77,7 @@ namespace WebCrawlerProject
                     titles.Add(title);
                 }
             }
-            getContent();
+            createContent();
         }
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
@@ -107,7 +107,7 @@ namespace WebCrawlerProject
         
         
         
-        private void getContent()
+        private void createContent()
         {
             string text = "";
             string content = "";
