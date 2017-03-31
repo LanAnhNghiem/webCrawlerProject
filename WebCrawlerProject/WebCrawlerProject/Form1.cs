@@ -98,7 +98,7 @@ namespace WebCrawlerProject
             string text = "";
             
             string HTML = doc.DocumentNode.InnerHtml;
-            string[] pattern = new string[] { @"<script[^>]*>[\s\S]*?</script>", @"<style[^>]*>[\s\S]*?</style>", @"<!--[\s\S]*?-->", @"<form[^>]*>[\s\S]*?</form>" };
+            string[] pattern = new string[] { @"<script[^>]*>[\s\S]*?</script>", @"<style[^>]*>[\s\S]*?</style>", @"<!--[\s\S]*?-->", @"<form[^>]*>[\s\S]*?</form>", @"&[\s\S]*?;" };
             Regex regex = new Regex(string.Join("|", pattern), RegexOptions.IgnoreCase);
             HTML = regex.Replace(HTML, "");
             doc.LoadHtml(HTML);
