@@ -122,24 +122,12 @@ namespace WebCrawlerProject
             HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
 
             for (int i = 0; i < listLinks.Count; i++)
-            {
-                //url = System.Uri.UnescapeDataString(listLinks[i]);
+            {                
                 try
                 {
-                    try
-                    {
-                        if (listLinks[i].Contains("https://") || listLinks[i].Contains("http://"))
-                            doc = web.Load(listLinks[i]);
-                        else
-                            doc = web.Load("http://" + listLinks[i]);
-                    }
-                    catch
-                    {
-                        //
-                    }
-
-                    text = getText(doc);
-                    
+                    //url = System.Uri.UnescapeDataString(listLinks[i]);
+                    doc = web.Load(listLinks[i]);                    
+                    text = getText(doc);                    
                 }
                 catch (Exception ex)
                 {
