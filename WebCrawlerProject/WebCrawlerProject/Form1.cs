@@ -12,7 +12,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HtmlAgilityPack;
-using System.Text.RegularExpressions;
 using System.Data.SqlClient;
 
 namespace WebCrawlerProject
@@ -91,12 +90,44 @@ namespace WebCrawlerProject
                 button1.Enabled = true;
             }
         }
+        
+        
+        
+        private string editText(HtmlAgilityPack.HtmlDocument doc)
+        {
+            string text = "";
+
+            /*
+            string HTML = doc.DocumentNode.InnerHtml;
+            string[] pattern = new string[] { @"<script[^>]*>[\s\S]*?</script>", @"<style[^>]*>[\s\S]*?</style>", @"<!--[\s\S]*?-->", @"<form[^>]*>[\s\S]*?</form>" };
+            Regex regex = new Regex(string.Join("|", pattern), RegexOptions.IgnoreCase);
+            HTML = regex.Replace(HTML, "");
+            doc.LoadHtml(HTML);
+            text = doc.DocumentNode.SelectSingleNode("//div[contains(@class,'content')] | //p").InnerText;
+            */
+
+
+
+            foreach (HtmlNode p in doc.DocumentNode.Descendants("p").ToArray())
+            {
+                text += p.InnerText + " ";
+            }
+
+            // Xoa ky tu rac
+            string[] pattern = new string[] { @"&nbsp;", @"&sdot;", @"&gt;" };  
+            Regex regex = new Regex(string.Join("|", pattern), RegexOptions.IgnoreCase);
+            text = regex.Replace(text, "");
+
+            return text;
+        }
+        
+        
+        
         private void getContent()
         {
-            List<string> contents = new List<string>();
-            String content = "";
-            FileInfo file = new FileInfo("E:\\info.txt");
-            StreamWriter text = file.CreateText();
+            string text = "";
+            string content = "";
+            StreamWriter sw = new StreamWriter(@"D:\\info.txt", false);
             for (int i = 0; i < listLinks.Count; i++)
             {
                 //url = System.Uri.UnescapeDataString(listLinks[i]);
@@ -104,26 +135,21 @@ namespace WebCrawlerProject
                 {
                     HtmlWeb web = new HtmlWeb();
                     HtmlAgilityPack.HtmlDocument doc = web.Load(listLinks[i]);
-                    String content_ = doc.DocumentNode.InnerHtml;
-                    string[] pattern = new string[] { @"<script[^>]*>[\s\S]*?</script>", @"<style[^>]*>[\s\S]*?</style>", @"<!--[\s\S]*?-->", @"<form[^>]*>[\s\S]*?</form>" };
-                    var regex = new Regex(string.Join("|", pattern), RegexOptions.IgnoreCase);
-                    content = regex.Replace(content_, "");
-                    doc.LoadHtml(content);
-                    content = doc.DocumentNode.SelectSingleNode("//div[contains(@class,'content')] | //p").InnerText;
+                    text = editText(doc);
                 }
-
                 catch (Exception ex)
                 {
                     //MessageBox.Show(ex.Message);
                 }
-                contents.Add(content);
-                text.WriteLine(content);
-                text.WriteLine(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 
+                content += text + "\r\n\n-------------------------------------------------------------------------------\r\n\n";                
             }
 
+            sw.WriteLine(content);
+            sw.Close();
+
+            // Xoa danh sach link cu trong listBox1 de load link moi cho lan search sau
+            listLinks.RemoveRange(0, listLinks.Count);
         }
-
-
     }
 }
