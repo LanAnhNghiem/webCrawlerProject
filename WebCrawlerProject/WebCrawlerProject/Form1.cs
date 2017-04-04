@@ -20,6 +20,7 @@ namespace WebCrawlerProject
     {
         private System.Windows.Forms.Timer tm;
         private List<String> listLinks = new List<String>();
+        
         public Form1()
         {
             InitializeComponent();
@@ -33,16 +34,38 @@ namespace WebCrawlerProject
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //num = Int32.Parse(textBox2.Text);
             listBox1.Items.Clear();
             loadingPage();
             
+        }
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                listBox1.Items.Clear();
+                loadingPage();
+            }
+        }
+        private string choosePathToSave()
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "Text file|*.txt";
+            saveFileDialog1.Title = "Save file text";
+            saveFileDialog1.ShowDialog();
+            if (!string.IsNullOrWhiteSpace(saveFileDialog1.FileName))
+            {
+                return saveFileDialog1.FileName;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         private void loadingPage()
         {
             String link;
-            link = "https://www.google.com.vn/#q=" + textBox1.Text + "&num=10";
+            link = "https://www.google.com.vn/#q=" + textBox1.Text + "&num=20";
 
             webBrowser1.Navigate(link);
             tm = new System.Windows.Forms.Timer();
@@ -110,14 +133,15 @@ namespace WebCrawlerProject
 
             return text;
         }
-        
-        
-        
+
         private void createContent()
         {
+            label.Text = "Please wait ...";
             string text = "";
             string content = "";
-            StreamWriter sw = new StreamWriter(@"E:\\info.txt", false);
+            string path = choosePathToSave();
+            
+            StreamWriter sw = new StreamWriter(path, false);
             HtmlWeb web = new HtmlWeb();
             HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
 
@@ -139,9 +163,12 @@ namespace WebCrawlerProject
 
             sw.WriteLine(content);
             sw.Close();
-
+            label.Text = "Write file compeleted.";
+            MessageBox.Show("DONE!");
             // Xoa danh sach link cu trong listBox1 de load link moi cho lan search sau
             listLinks.RemoveRange(0, listLinks.Count);
         }
+
+        
     }
 }
