@@ -8,8 +8,6 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using HtmlAgilityPack;
 using System.Data.SqlClient;
@@ -89,18 +87,25 @@ namespace WebCrawlerProject
             List<string> titles = new List<string>();
             String url = "";
             String title = "";
-            for (int i = 0; i < link.Count; i++)
+            if (link.Count > 0)
             {
-                if (link[i].OuterHtml.Contains("onmousedown") && !link[i].OuterHtml.Contains("class=\"fl\"") & !link[i].OuterHtml.Contains("google"))
+                for (int i = 0; i < link.Count; i++)
                 {
-                    url = System.Uri.UnescapeDataString(link[i].GetAttribute("href"));
-                    listBox1.Items.Add(url);
-                    listLinks.Add(url);
-                    title = System.Uri.UnescapeDataString(link[i].InnerHtml);
-                    titles.Add(title);
+                    if (link[i].OuterHtml.Contains("onmousedown") && !link[i].OuterHtml.Contains("class=\"fl\"") & !link[i].OuterHtml.Contains("google"))
+                    {
+                        url = System.Uri.UnescapeDataString(link[i].GetAttribute("href"));
+                        listBox1.Items.Add(url);
+                        listLinks.Add(url);
+                        title = System.Uri.UnescapeDataString(link[i].InnerHtml);
+                        titles.Add(title);
+                    }
                 }
+                createContent();
             }
-            createContent();
+            else
+            {
+                loadingPage();
+            }
         }
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
@@ -136,37 +141,40 @@ namespace WebCrawlerProject
 
         private void createContent()
         {
-            label.Text = "Please wait ...";
             string text = "";
             string content = "";
             string path = choosePathToSave();
-            
-            StreamWriter sw = new StreamWriter(path, false);
-            HtmlWeb web = new HtmlWeb();
-            HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
 
-            for (int i = 0; i < listLinks.Count; i++)
-            {                
-                try
+            if (path != null)
+            {
+                label.Text = "Please wait ...";
+                StreamWriter sw = new StreamWriter(path, false);
+                HtmlWeb web = new HtmlWeb();
+                HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+
+                for (int i = 0; i < listLinks.Count; i++)
                 {
-                    //url = System.Uri.UnescapeDataString(listLinks[i]);
-                    doc = web.Load(listLinks[i]);                    
-                    text = getText(doc);                    
-                }
-                catch
-                {
-                    text = "";
+                    try
+                    {
+                        //url = System.Uri.UnescapeDataString(listLinks[i]);
+                        doc = web.Load(listLinks[i]);
+                        text = getText(doc);
+                    }
+                    catch
+                    {
+                        text = "";
+                    }
+
+                    content += text + "\r\n\n-------------------------------------------------------------------------------\r\n\n";
                 }
 
-                content += text + "\r\n\n-------------------------------------------------------------------------------\r\n\n";                
+                sw.WriteLine(content);
+                sw.Close();
+                label.Text = "Write file compeleted.";
+                MessageBox.Show("DONE!");
+                // Xoa danh sach link cu trong listBox1 de load link moi cho lan search sau
+                listLinks.RemoveRange(0, listLinks.Count);
             }
-
-            sw.WriteLine(content);
-            sw.Close();
-            label.Text = "Write file compeleted.";
-            MessageBox.Show("DONE!");
-            // Xoa danh sach link cu trong listBox1 de load link moi cho lan search sau
-            listLinks.RemoveRange(0, listLinks.Count);
         }
 
         

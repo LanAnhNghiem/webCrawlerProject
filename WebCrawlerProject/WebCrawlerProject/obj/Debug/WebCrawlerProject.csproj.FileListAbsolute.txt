@@ -21,3 +21,9 @@ E:\DoAnCNPMCS\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\obj\Debug\We
 E:\DoAnCNPMCS\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\obj\Debug\WebCrawlerProject.Form1.resources
 E:\DoAnCNPMCS\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\obj\Debug\WebCrawlerProject.Properties.Resources.resources
 E:\DoAnCNPMCS\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\obj\Debug\WebCrawlerProject.csproj.GenerateResource.Cache
+E:\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\EngineIoClientDotNet.dll
+E:\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\Newtonsoft.Json.dll
+E:\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\SocketIoClientDotNet.dll
+E:\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\WebSocket4Net.dll
+E:\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\Newtonsoft.Json.xml
+E:\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\obj\Debug\WebCrawlerProject.Form2.resources
