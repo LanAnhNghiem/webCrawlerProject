@@ -19,8 +19,8 @@ namespace WebCrawlerProject
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            
-            socket.On(Socket.EVENT_CONNECT, () => {
+            Application.Run(new Form1());
+            /*socket.On(Socket.EVENT_CONNECT, () => {
 
             });
             checkRegistration();
@@ -38,7 +38,7 @@ namespace WebCrawlerProject
                 }
             }
             else
-                Application.Run(new Form2());
+                Application.Run(new Form2());*/
         }
         
         private static void checkRegistration()

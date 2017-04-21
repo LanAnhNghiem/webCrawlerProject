@@ -27,3 +27,14 @@ E:\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\SocketIoClien
 E:\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\WebSocket4Net.dll
 E:\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\Newtonsoft.Json.xml
 E:\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\obj\Debug\WebCrawlerProject.Form2.resources
+E:\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\Microsoft.Threading.Tasks.dll
+E:\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\Microsoft.Threading.Tasks.Extensions.Desktop.dll
+E:\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\Microsoft.Threading.Tasks.Extensions.dll
+E:\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\System.Net.Http.Extensions.dll
+E:\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\System.Net.Http.Primitives.dll
+E:\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\unirest-net.dll
+E:\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\Microsoft.Threading.Tasks.xml
+E:\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\Microsoft.Threading.Tasks.Extensions.xml
+E:\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\Microsoft.Threading.Tasks.Extensions.Desktop.xml
+E:\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\System.Net.Http.Extensions.xml
+E:\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\System.Net.Http.Primitives.xml

@@ -11,6 +11,8 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using HtmlAgilityPack;
 using System.Data.SqlClient;
+using unirest_net.http;
+using unirest_net.request;
 
 namespace WebCrawlerProject
 {
@@ -18,6 +20,7 @@ namespace WebCrawlerProject
     {
         private System.Windows.Forms.Timer tm;
         private List<String> listLinks = new List<String>();
+        private static string filePath = "";
         
         public Form1()
         {
@@ -52,6 +55,7 @@ namespace WebCrawlerProject
             saveFileDialog1.ShowDialog();
             if (!string.IsNullOrWhiteSpace(saveFileDialog1.FileName))
             {
+                filePath = saveFileDialog1.FileName;
                 return saveFileDialog1.FileName;
             }
             else
@@ -101,6 +105,8 @@ namespace WebCrawlerProject
                     }
                 }
                 createContent();
+                //tom tat van ban 
+                summarize();
             }
             else
             {
@@ -177,6 +183,18 @@ namespace WebCrawlerProject
             }
         }
 
-        
+        private void summarize()
+        {
+            string text = System.IO.File.ReadAllText(filePath);
+
+            HttpResponse<String> response = Unirest.post("https://textanalysis-text-summarization.p.mashape.com/text-summarizer-text")
+                .header("X-Mashape-Authorization", "omFDgdAsRAmshCbOhXoIKwsebnAEp14idUOjsn2UxGevxvi8Y8")
+                //.header("Content-Type", "application/x-www-form-urlencoded")
+                .header("Accept", "application/json")
+                .field("sentnum", 5)
+                .field("text", text)
+                .asJson<String>();
+            richTextBox1.Text = System.Text.RegularExpressions.Regex.Unescape(response.Body);
+        }
     }
 }
