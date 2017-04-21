@@ -13,6 +13,7 @@ using HtmlAgilityPack;
 using System.Data.SqlClient;
 using unirest_net.http;
 using unirest_net.request;
+using Newtonsoft.Json.Linq;
 
 namespace WebCrawlerProject
 {
@@ -191,10 +192,19 @@ namespace WebCrawlerProject
                 .header("X-Mashape-Authorization", "omFDgdAsRAmshCbOhXoIKwsebnAEp14idUOjsn2UxGevxvi8Y8")
                 //.header("Content-Type", "application/x-www-form-urlencoded")
                 .header("Accept", "application/json")
-                .field("sentnum", 5)
+                .field("sentnum", 40)
                 .field("text", text)
                 .asJson<String>();
-            richTextBox1.Text = System.Text.RegularExpressions.Regex.Unescape(response.Body);
+            //   richTextBox1.Text = System.Text.RegularExpressions.Regex.Unescape(response.Body);
+            JObject json = JObject.Parse(response.Body);
+
+            string k = "";
+            for (int i = 0; i < 40; i++)
+            {
+                k = k + (string)json.SelectToken("sentences[" + i.ToString() + "]") + " ";
+            }
+
+            richTextBox1.Text = k;
         }
     }
 }
