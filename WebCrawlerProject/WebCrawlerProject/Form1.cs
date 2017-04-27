@@ -14,6 +14,7 @@ using System.Data.SqlClient;
 using unirest_net.http;
 using unirest_net.request;
 using Newtonsoft.Json.Linq;
+using System.Xml;
 
 namespace WebCrawlerProject
 {
@@ -22,6 +23,8 @@ namespace WebCrawlerProject
         private System.Windows.Forms.Timer tm;
         private List<String> listLinks = new List<String>();
         private static string filePath = "";
+        private int SoUrl;
+        private int SoCau;
         
         public Form1()
         {
@@ -31,6 +34,18 @@ namespace WebCrawlerProject
         private void Form1_Load(object sender, EventArgs e)
         {
             button1.Enabled = false;
+            XmlTextReader xml = new XmlTextReader("ThamSo.xml");
+            while(xml.Read())
+            {
+                if(xml.Name=="SoUrl")
+                {
+                    SoUrl = xml.ReadElementContentAsInt();
+                }
+                if(xml.Name=="SoCau")
+                {
+                    SoCau = xml.ReadElementContentAsInt();
+                }
+            }
 
         }
 
@@ -68,7 +83,7 @@ namespace WebCrawlerProject
         private void loadingPage()
         {
             String link;
-            link = "https://www.google.com.vn/#q=" + textBox1.Text + "&num=20";
+            link = "https://www.google.com.vn/#q=" + textBox1.Text + "&num="+SoUrl.ToString();
 
             webBrowser1.Navigate(link);
             tm = new System.Windows.Forms.Timer();
@@ -192,14 +207,14 @@ namespace WebCrawlerProject
                 .header("X-Mashape-Authorization", "omFDgdAsRAmshCbOhXoIKwsebnAEp14idUOjsn2UxGevxvi8Y8")
                 //.header("Content-Type", "application/x-www-form-urlencoded")
                 .header("Accept", "application/json")
-                .field("sentnum", 40)
+                .field("sentnum", SoCau)
                 .field("text", text)
                 .asJson<String>();
-            //   richTextBox1.Text = System.Text.RegularExpressions.Regex.Unescape(response.Body);
+        //       richTextBox1.Text = System.Text.RegularExpressions.Regex.Unescape(response.Body);
             JObject json = JObject.Parse(response.Body);
 
             string k = "";
-            for (int i = 0; i < 40; i++)
+            for (int i = 0; i < SoCau; i++)
             {
                 k = k + (string)json.SelectToken("sentences[" + i.ToString() + "]") + " ";
             }

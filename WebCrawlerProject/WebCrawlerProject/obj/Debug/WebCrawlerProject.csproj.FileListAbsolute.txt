@@ -55,3 +55,4 @@ E:\DoAnCNPMCS\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\Ne
 E:\DoAnCNPMCS\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\System.Net.Http.Extensions.xml
 E:\DoAnCNPMCS\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\System.Net.Http.Primitives.xml
 E:\DoAnCNPMCS\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\obj\Debug\WebCrawlerProject.Form2.resources
+E:\DoAnCNPMCS\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\ThamSo.xml
