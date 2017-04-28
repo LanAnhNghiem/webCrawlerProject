@@ -56,3 +56,6 @@ E:\DoAnCNPMCS\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\Sy
 E:\DoAnCNPMCS\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\System.Net.Http.Primitives.xml
 E:\DoAnCNPMCS\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\obj\Debug\WebCrawlerProject.Form2.resources
 E:\DoAnCNPMCS\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\ThamSo.xml
+C:\Users\Admin\Desktop\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\WebCrawlerProject.exe.config
+C:\Users\Admin\Desktop\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\obj\Debug\WebCrawlerProject.exe
+C:\Users\Admin\Desktop\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\obj\Debug\WebCrawlerProject.pdb

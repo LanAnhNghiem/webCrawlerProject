@@ -10,7 +10,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using HtmlAgilityPack;
-using System.Data.SqlClient;
 using unirest_net.http;
 using unirest_net.request;
 using Newtonsoft.Json.Linq;
@@ -22,7 +21,6 @@ namespace WebCrawlerProject
     {
         private System.Windows.Forms.Timer tm;
         private List<String> listLinks = new List<String>();
-        private static string filePath = "";
         private int SoUrl;
         private int SoCau;
         
@@ -63,22 +61,7 @@ namespace WebCrawlerProject
                 loadingPage();
             }
         }
-        private string choosePathToSave()
-        {
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Filter = "Text file|*.txt";
-            saveFileDialog1.Title = "Save file text";
-            saveFileDialog1.ShowDialog();
-            if (!string.IsNullOrWhiteSpace(saveFileDialog1.FileName))
-            {
-                filePath = saveFileDialog1.FileName;
-                return saveFileDialog1.FileName;
-            }
-            else
-            {
-                return null;
-            }
-        }
+        
 
         private void loadingPage()
         {
@@ -161,16 +144,13 @@ namespace WebCrawlerProject
             return text;
         }
 
+        string content = "";
         private void createContent()
         {
             string text = "";
-            string content = "";
-            string path = choosePathToSave();
 
-            if (path != null)
-            {
-                label.Text = "Please wait ...";
-                StreamWriter sw = new StreamWriter(path, false);
+            
+                
                 HtmlWeb web = new HtmlWeb();
                 HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
 
@@ -190,25 +170,22 @@ namespace WebCrawlerProject
                     content += text + "\r\n\n-------------------------------------------------------------------------------\r\n\n";
                 }
 
-                sw.WriteLine(content);
-                sw.Close();
-                label.Text = "Write file compeleted.";
-                MessageBox.Show("DONE!");
-                // Xoa danh sach link cu trong listBox1 de load link moi cho lan search sau
-                listLinks.RemoveRange(0, listLinks.Count);
-            }
+
+            // Xoa danh sach link cu trong listBox1 de load link moi cho lan search sau
+            listLinks.Clear();
+            
         }
 
         private void summarize()
         {
-            string text = System.IO.File.ReadAllText(filePath);
+            
 
             HttpResponse<String> response = Unirest.post("https://textanalysis-text-summarization.p.mashape.com/text-summarizer-text")
                 .header("X-Mashape-Authorization", "omFDgdAsRAmshCbOhXoIKwsebnAEp14idUOjsn2UxGevxvi8Y8")
                 //.header("Content-Type", "application/x-www-form-urlencoded")
                 .header("Accept", "application/json")
                 .field("sentnum", SoCau)
-                .field("text", text)
+                .field("text", content)
                 .asJson<String>();
         //       richTextBox1.Text = System.Text.RegularExpressions.Regex.Unescape(response.Body);
             JObject json = JObject.Parse(response.Body);
