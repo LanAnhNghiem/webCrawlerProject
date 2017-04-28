@@ -148,10 +148,10 @@ namespace WebCrawlerProject
         private void createContent()
         {
             string text = "";
+            content = "";
 
-            
-                
-                HtmlWeb web = new HtmlWeb();
+
+            HtmlWeb web = new HtmlWeb();
                 HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
 
                 for (int i = 0; i < listLinks.Count; i++)
