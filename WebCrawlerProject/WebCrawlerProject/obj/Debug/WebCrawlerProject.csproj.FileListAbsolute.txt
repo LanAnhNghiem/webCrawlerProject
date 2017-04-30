@@ -85,3 +85,4 @@ C:\Users\Admin\Desktop\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\obj
 C:\Users\Admin\Desktop\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\obj\Debug\WebCrawlerProject.Form2.resources
 C:\Users\Admin\Desktop\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\obj\Debug\WebCrawlerProject.Properties.Resources.resources
 C:\Users\Admin\Desktop\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\obj\Debug\WebCrawlerProject.csproj.GenerateResource.Cache
+E:\webCrawlerProject\WebCrawlerProject\WebCrawlerProject\bin\Debug\ThamSo.xml
