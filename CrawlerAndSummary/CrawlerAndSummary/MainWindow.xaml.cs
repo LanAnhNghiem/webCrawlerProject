@@ -36,6 +36,7 @@ namespace CrawlerAndSummary
         private int SoCau;
         private readonly BackgroundWorker worker = new BackgroundWorker();
         private string result = "";
+        private string sub_string = "";
         public MainWindow()
         {
             InitializeComponent();
@@ -65,9 +66,12 @@ namespace CrawlerAndSummary
 
         private void searchBtn_Click(object sender, RoutedEventArgs e)
         {
-            listBox.Items.Clear();
-            resultTxtBox.Clear();
-            loadingPage();
+            if(!worker.IsBusy)
+            {
+                listBox.Items.Clear();
+                resultTxtBox.Clear();
+                loadingPage();
+            }
         }
 
         private void searchTxtBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
@@ -118,7 +122,8 @@ namespace CrawlerAndSummary
                         titles.Add(title);
                     }
                 }
-                if(!worker.IsBusy)
+                sub_string = searchTxtBox.Text;
+                if (!worker.IsBusy)
                     worker.RunWorkerAsync();
                 this.Cursor = System.Windows.Input.Cursors.Wait;
             }
@@ -200,11 +205,15 @@ namespace CrawlerAndSummary
                 .asJson<String>();
             JObject json = JObject.Parse(response.Body);
             worker.ReportProgress(20);
-            
             double percent = 0;
+            result = "";
             for (int i = 0; i < SoCau; i++)
             {
-                result = result + (string)json.SelectToken("sentences[" + i.ToString() + "]") + " ";
+                string contain_string = (string)json.SelectToken("sentences[" + i.ToString() + "]");
+                if (contain_string.IndexOf(sub_string,StringComparison.OrdinalIgnoreCase) != -1)
+                {
+                    result = result + (string)json.SelectToken("sentences[" + i.ToString() + "]") + " ";
+                }
                 percent += 50 / SoCau;
                 worker.ReportProgress((int)Math.Ceiling(percent));
             }
