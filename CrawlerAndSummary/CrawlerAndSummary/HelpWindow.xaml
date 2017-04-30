@@ -53,7 +53,7 @@
                 <Grid  Background="#FF413D4D" Margin="-9,-2,-4,-6">
                     <Label x:Name="label_Copy3" Content="Students from University Of Information Technology" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,13,0,0" Height="42" Width="472" FontSize="20" Foreground="#FF8CBEBD"/>
                     <Label x:Name="label_Copy4" Content="1. Nghiem Lan Anh - 14520021" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="17,55,0,0" Height="42" Width="472" FontSize="20" Foreground="#FF8CBEBD"/>
-                    <Label x:Name="label_Copy5" Content="3. Hoang Tam - 14520799" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="17,139,0,0" Height="42" Width="472" FontSize="20" Foreground="#FF8CBEBD"/>
+                    <Label x:Name="label_Copy5" Content="3. Phan Hoang Tam - 14520799" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="17,139,0,0" Height="42" Width="472" FontSize="20" Foreground="#FF8CBEBD"/>
                     <Label x:Name="label_Copy6" Content="2. Vo Thi Thuy Nga - 14520571" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="17,97,0,0" Height="42" Width="472" FontSize="20" Foreground="#FF8CBEBD"/>
                     <Label x:Name="label_Copy7" Content="team.webcrawlerapp@gmail.com" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="256,181,0,0" Height="42" Width="233" FontSize="15" Foreground="#FF8CBEBD"/>
                 </Grid>

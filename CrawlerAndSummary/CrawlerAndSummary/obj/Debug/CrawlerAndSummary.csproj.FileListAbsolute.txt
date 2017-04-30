@@ -35,3 +35,6 @@ D:\Projects\CrawlerAndSummary\CrawlerAndSummary\bin\Debug\System.Net.Http.Extens
 D:\Projects\CrawlerAndSummary\CrawlerAndSummary\bin\Debug\System.Net.Http.Primitives.xml
 D:\Projects\CrawlerAndSummary\CrawlerAndSummary\obj\Debug\HelpWindow.g.cs
 D:\Projects\CrawlerAndSummary\CrawlerAndSummary\obj\Debug\HelpWindow.baml
+E:\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\bin\Debug\CrawlerAndSummary.exe.config
+E:\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\obj\Debug\CrawlerAndSummary.exe
+E:\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\obj\Debug\CrawlerAndSummary.pdb
