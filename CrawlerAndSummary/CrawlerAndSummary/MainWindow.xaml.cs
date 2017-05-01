@@ -21,7 +21,7 @@ using Newtonsoft.Json.Linq;
 using System.Threading;
 using System.Windows.Media.Animation;
 using System.ComponentModel;
-
+using Quobject.SocketIoClientDotNet.Client;
 namespace CrawlerAndSummary
 {
     /// <summary>
@@ -37,6 +37,7 @@ namespace CrawlerAndSummary
         private readonly BackgroundWorker worker = new BackgroundWorker();
         private string result = "";
         private string sub_string = "";
+        Socket socket = IO.Socket("https://web-crawler-app.herokuapp.com");
         public MainWindow()
         {
             InitializeComponent();
@@ -58,12 +59,47 @@ namespace CrawlerAndSummary
                     SoCau = xml.ReadElementContentAsInt();
                 }
             }
+            //check registration
+            checkRegistration();
+            //enable background worker
             worker.WorkerReportsProgress = true;
             worker.ProgressChanged += backgroundWorker_ProgressChanged;
             worker.DoWork += backgroundWorker_DoWork;
             worker.RunWorkerCompleted += backgroundWordker_RunWorkerCompleted;
         }
-
+        private void checkRegistration()
+        {
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.ID))
+            {
+                socket.Emit("client-check-registration", (Properties.Settings.Default.ID + "*" + DateTime.Now));
+                socket.On("server-reply-registration", data =>
+                {
+                    Properties.Settings.Default.ID = Properties.Settings.Default.ID + "*" + data.ToString();
+                    Properties.Settings.Default.Save();
+                    string idString = (string)Properties.Settings.Default.ID;
+                    if (!String.IsNullOrEmpty(idString))
+                    {
+                        if (!idString.Contains("*") && idString.Substring(idString.Length - 1) != "0")
+                        {
+                            changeWindow();
+                        }
+                    }
+                    else
+                    {
+                        changeWindow();
+                    }
+                });
+            }
+            else
+                changeWindow();
+        }
+        private void changeWindow()
+        {
+            this.Hide();
+            Registration reg = new Registration();
+            reg.Show();
+            this.Close();
+        }
         private void searchBtn_Click(object sender, RoutedEventArgs e)
         {
             if(!worker.IsBusy)
@@ -249,5 +285,7 @@ namespace CrawlerAndSummary
             HelpWindow helpWindow = new HelpWindow();
             helpWindow.Show();
         }
+
+        
     }
 }

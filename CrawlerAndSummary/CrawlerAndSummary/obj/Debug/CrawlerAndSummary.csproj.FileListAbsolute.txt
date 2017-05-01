@@ -72,3 +72,5 @@ E:\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\obj\Debug\CrawlerAndSum
 E:\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\obj\Debug\CrawlerAndSummary.Properties.Resources.resources
 E:\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\obj\Debug\CrawlerAndSummary.csproj.GenerateResource.Cache
 E:\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\obj\Debug\CrawlerAndSummary.exe.licenses
+E:\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\obj\Debug\Registration.g.cs
+E:\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\obj\Debug\Registration.baml
