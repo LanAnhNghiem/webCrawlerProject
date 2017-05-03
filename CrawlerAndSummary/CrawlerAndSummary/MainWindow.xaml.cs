@@ -98,7 +98,10 @@ namespace CrawlerAndSummary
             this.Hide();
             Registration reg = new Registration();
             reg.Show();
-            this.Close();
+            reg.Closing += (sender, args) =>
+            {
+                this.Close();
+            };
         }
         private void searchBtn_Click(object sender, RoutedEventArgs e)
         {
