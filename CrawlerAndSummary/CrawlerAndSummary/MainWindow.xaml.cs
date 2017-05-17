@@ -118,7 +118,6 @@ namespace CrawlerAndSummary
             if (e.Key == Key.Enter)
             {
                 listBox.Items.Clear();
-                resultTxtBox.Clear();
                 loadingPage();
             }
         }
@@ -146,21 +145,20 @@ namespace CrawlerAndSummary
         void listLink()
         {
             HtmlElementCollection link = webBrowser.Document.Links ;
-            //List<string> titles = new List<string>();
-            //String url = "";
-            //String title = "";
-
+            List<string> titles = new List<string>();
+            String url = "";
+            String title = "";
             if (link.Count > 0)
             {
                 for (int i = 0; i < link.Count; i++)
                 {
-                    if (link[i].OuterHtml.Contains("onmousedown") && !link[i].OuterHtml.Contains("class=\"fl\"") && !link[i].OuterHtml.Contains("google"))
+                    if (link[i].OuterHtml.Contains("onmousedown") && !link[i].OuterHtml.Contains("class=\"fl\"") & !link[i].OuterHtml.Contains("google"))
                     {
-                        String url = System.Uri.UnescapeDataString(link[i].GetAttribute("href"));
+                        url = System.Uri.UnescapeDataString(link[i].GetAttribute("href"));
                         listBox.Items.Add(url);
                         listLinks.Add(url);
-                        //title = System.Uri.UnescapeDataString(link[i].InnerHtml);
-                        //titles.Add(title);
+                        title = System.Uri.UnescapeDataString(link[i].InnerHtml);
+                        titles.Add(title);
                     }
                 }
                 sub_string = searchTxtBox.Text;
@@ -190,17 +188,14 @@ namespace CrawlerAndSummary
             string text = "";
 
             string HTML = doc.DocumentNode.InnerHtml;
-            string[] pattern = new string[] { @"<span[^>]*>[\s\S]*?</span>", @"<script[^>]*>[\s\S]*?</script>", @"<style[^>]*>[\s\S]*?</style>", @"<!--[\s\S]*?-->", @"<form[^>]*>[\s\S]*?</form>", @"&[\s\S]*?;" };
+            string[] pattern = new string[] { @"<script[^>]*>[\s\S]*?</script>", @"<style[^>]*>[\s\S]*?</style>", @"<!--[\s\S]*?-->", @"<form[^>]*>[\s\S]*?</form>", @"&[\s\S]*?;" };
             Regex regex = new Regex(string.Join("|", pattern), RegexOptions.IgnoreCase);
             HTML = regex.Replace(HTML, "");
             doc.LoadHtml(HTML);
 
             foreach (HtmlNode p in doc.DocumentNode.Descendants("p").ToArray())
             {
-                text += p.InnerText.Trim() + " ";
-
-                /*if(!p.InnerText.Trim().Contains("Đang tải...") && !p.InnerText.Trim().Contains("Đang hoạt động..."))
-                    text += p.InnerText.Trim() + " ";*/
+                text += p.InnerText + " ";
             }
 
             return text;
