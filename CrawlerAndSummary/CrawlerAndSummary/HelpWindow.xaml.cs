@@ -24,5 +24,10 @@ namespace CrawlerAndSummary
             InitializeComponent();
             this.ResizeMode = ResizeMode.NoResize;
         }
+
+        private void HelpWindow1_Closed(object sender, EventArgs e)
+        {
+            MainWindow.flat = 0;
+        }
     }
 }

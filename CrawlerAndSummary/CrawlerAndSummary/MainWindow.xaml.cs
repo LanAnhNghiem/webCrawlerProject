@@ -37,6 +37,7 @@ namespace CrawlerAndSummary
         private readonly BackgroundWorker worker = new BackgroundWorker();
         private string result = "";
         private string sub_string = "";
+        public static int flat = 0;
         Socket socket = IO.Socket("https://web-crawler-app.herokuapp.com");
         public MainWindow()
         {
@@ -285,8 +286,12 @@ namespace CrawlerAndSummary
 
         private void helpBtn_Click(object sender, RoutedEventArgs e)
         {
-            HelpWindow helpWindow = new HelpWindow();
-            helpWindow.Show();
+            flat = flat + 1;
+            if (flat == 1)
+            {
+                HelpWindow helpWindow = new HelpWindow();
+                helpWindow.Show();
+            }
         }
 
         

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CrawlerAndSummary"
         xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui" x:Name="HelpWindow1" x:Class="CrawlerAndSummary.HelpWindow"
         mc:Ignorable="d"
-        Title="Quick Help" Height="300" Width="500" FlowDirection="LeftToRight" Background="#FF2F2C38" Icon="Resources/analysis.ico" WindowStartupLocation="CenterScreen">
+        Title="Quick Help" Height="300" Width="500" FlowDirection="LeftToRight" Background="#FF2F2C38" Icon="Resources/analysis.ico" WindowStartupLocation="CenterScreen" Closed="HelpWindow1_Closed">
     <Grid>
         <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="269" VerticalAlignment="Top" Width="492" BorderBrush="{x:Null}">
             <TabItem Header="Help" Background="#FF8CBEBD">
