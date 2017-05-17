@@ -113,3 +113,6 @@ C:\Users\Admin\Desktop\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\bin
 C:\Users\Admin\Desktop\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\bin\Debug\System.Net.Http.Extensions.xml
 C:\Users\Admin\Desktop\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\bin\Debug\System.Net.Http.Primitives.xml
 C:\Users\Admin\Desktop\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\obj\Debug\CrawlerAndSummary.exe
+C:\Users\Admin\Source\Repos\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\bin\Debug\CrawlerAndSummary.exe.config
+C:\Users\Admin\Source\Repos\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\obj\Debug\CrawlerAndSummary.exe
+C:\Users\Admin\Source\Repos\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\obj\Debug\CrawlerAndSummary.pdb
