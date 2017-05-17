@@ -216,7 +216,7 @@ namespace CrawlerAndSummary
         private void registerBtn_Click(object sender, RoutedEventArgs e)
         {
             string dataString = "";
-            if (!string.IsNullOrEmpty((string)Properties.Settings.Default.ID) && !string.IsNullOrWhiteSpace(keyTxtBox.Text))
+            if (!string.IsNullOrEmpty((string)Properties.Settings.Default.ID) && !string.IsNullOrWhiteSpace(keyTxtBox.Text.Trim()))
             {
                 socket.Emit("check-valid-key", (keyTxtBox.Text.Trim() + "*" + Properties.Settings.Default.ID));
                 socket.On("check-valid-key-result", data => {
