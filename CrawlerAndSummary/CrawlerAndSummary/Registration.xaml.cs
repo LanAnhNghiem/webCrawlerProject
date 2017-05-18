@@ -218,7 +218,7 @@ namespace CrawlerAndSummary
             string dataString = "";
             if (!string.IsNullOrEmpty((string)Properties.Settings.Default.ID) && !string.IsNullOrWhiteSpace(keyTxtBox.Text))
             {
-                socket.Emit("check-valid-key", (keyTxtBox.Text + "*" + Properties.Settings.Default.ID));
+                socket.Emit("check-valid-key", (keyTxtBox.Text.Trim() + "*" + Properties.Settings.Default.ID));
                 socket.On("check-valid-key-result", data => {
                     dataString = data.ToString();
                 });
