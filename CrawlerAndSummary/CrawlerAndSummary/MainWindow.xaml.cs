@@ -126,7 +126,7 @@ namespace CrawlerAndSummary
         private void loadingPage()
         {
             String link;
-            link = "https://www.google.com.vn/#q=" + searchTxtBox.Text + "&num=" + SoUrl.ToString();
+            link = "https://www.google.com.vn/#q=" + searchTxtBox.Text + "&num=" + 50;
 
             webBrowser.Navigate(link);
             tm = new System.Windows.Forms.Timer();
@@ -157,11 +157,17 @@ namespace CrawlerAndSummary
                     if (link[i].OuterHtml.Contains("onmousedown") && !link[i].OuterHtml.Contains("class=\"fl\"") && !link[i].OuterHtml.Contains("google"))
                     {
                         url = System.Uri.UnescapeDataString(link[i].GetAttribute("href"));
-                        listBox.Items.Add(url);
-                        listLinks.Add(url);
+                        if(!url.StartsWith("https://www.youtube") && !url.EndsWith("/"))
+                        {
+                            listBox.Items.Add(url);
+                            listLinks.Add(url);
+                        }
                         //title = System.Uri.UnescapeDataString(link[i].InnerHtml);
                         //titles.Add(title);
                     }
+                    
+                    if (listLinks.Count == SoUrl)
+                        break;
                 }
                 sub_string = searchTxtBox.Text;
                 if (!worker.IsBusy)
@@ -190,19 +196,14 @@ namespace CrawlerAndSummary
             string text = "";
 
             string HTML = doc.DocumentNode.InnerHtml;
-            string[] pattern = new string[] { @"<ul[^>]*>[\s\S]*?</ul>", @"<script[^>]*>[\s\S]*?</script>", @"<style[^>]*>[\s\S]*?</style>", @"<!--[\s\S]*?-->", @"<form[^>]*>[\s\S]*?</form>", @"&[\s\S]*?;" };
+            string[] pattern = new string[] { @"<head>[^>]*>[\s\S]*?</head>", @"<ul[^>]*>[\s\S]*?</ul>", @"<script[^>]*>[\s\S]*?</script>", @"<style[^>]*>[\s\S]*?</style>", @"<!--[\s\S]*?-->", @"<form[^>]*>[\s\S]*?</form>", @"&[\s\S]*?;", @"<footer[^>]*>[\s\S]*?</footer>", @"<div class=" + "\"footer\">" + @"[^>]*>[\s\S]*?</div>" };
             Regex regex = new Regex(string.Join("|", pattern), RegexOptions.IgnoreCase);
             HTML = regex.Replace(HTML, "");
             doc.LoadHtml(HTML);
 
             foreach (HtmlNode p in doc.DocumentNode.Descendants("p").ToArray())
             {
-                //text += p.InnerText + " ";
-
-                // Xóa cụm từ "Đang tải..." + "Đang tải danh sách phát..." + "Đang hoạt động..."
-                string temp = p.InnerText.Trim();
-                if (!temp.StartsWith("Đang tải") && !temp.StartsWith("Đang hoạt động"))
-                    text += temp + " ";
+                text += p.InnerText.Trim() + " ";
             }
 
             return text;
