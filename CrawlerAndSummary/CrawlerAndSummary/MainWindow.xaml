@@ -8,10 +8,13 @@
         xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" x:Name="MainWindow1" x:Class="CrawlerAndSummary.MainWindow" Icon="Resources/analysis.ico"
         mc:Ignorable="d" Width="900" Height="500"  Background="#FF2F2C38" Loaded="MainWindow1_Loaded" WindowStartupLocation="CenterScreen">
     <Grid>
+        <Grid.Background>
+            <ImageBrush/>
+        </Grid.Background>
         <WindowsFormsHost Width="20" Height="20" Margin="862,10,10,439" Visibility="Hidden">
             <wf:WebBrowser x:Name="webBrowser" Height="20" Margin="830,0,0,0" Width="20" DocumentCompleted="webBrowser_DocumentCompleted"/>
         </WindowsFormsHost>
-        <Label x:Name="label" Content="Vietnamese Text Summarization" Margin="-5,0,10,419" Height="50" FontSize="30" Foreground="#FFF3B562" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
+        <Label x:Name="label" Margin="-2,0,10,419" Height="50" FontSize="30" Foreground="#FFF3B562" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
         <TextBox x:Name="searchTxtBox" HorizontalAlignment="Left" Height="24" Margin="59,70,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="250" Background="#FF2F2C38" Foreground="White" FontSize="15" BorderBrush="#FF474747" SelectionBrush="#FFF06060" PreviewKeyDown="searchTxtBox_PreviewKeyDown" TextChanged="searchTxtBox_TextChanged"/>
         <Button x:Name="searchBtn" Content="Search" HorizontalAlignment="Left" Margin="344,69,0,0" VerticalAlignment="Top" Width="75" Background="#FFF06060" Foreground="White" FontSize="15" Click="searchBtn_Click"/>
         <Label x:Name="label1" Content="URL list" HorizontalAlignment="Left" Margin="35,109,0,0" VerticalAlignment="Top" Foreground="#FF8CBEBD" FontSize="18"/>
@@ -29,6 +32,7 @@
                 <Image x:Name="copyImg" Source="Resources/copy.png" Stretch="Uniform" Width="36"/>
             </StackPanel>
         </Button>
+        <Button x:Name="button" Content="Edit" HorizontalAlignment="Left" Margin="65,16,0,0" VerticalAlignment="Top" Width="44" RenderTransformOrigin="-0.431,1.145" Height="32" Click="button_Click" Background="#FFF06060" Foreground="#FFF7F2F2"/>
 
     </Grid>
 

@@ -38,6 +38,7 @@ namespace CrawlerAndSummary
         private string result = "";
         private string sub_string = "";
         public static int flat = 0;
+        public static int flatedit = 0;
         Socket socket = IO.Socket("https://web-crawler-app.herokuapp.com");
         public MainWindow()
         {
@@ -126,7 +127,7 @@ namespace CrawlerAndSummary
         private void loadingPage()
         {
             String link;
-            link = "https://www.google.com.vn/#q=" + searchTxtBox.Text + "&num=" + 50;
+            link = "https://www.google.com.vn/#q=" + searchTxtBox.Text + "&num=" + SoUrl.ToString();
 
             webBrowser.Navigate(link);
             tm = new System.Windows.Forms.Timer();
@@ -301,6 +302,16 @@ namespace CrawlerAndSummary
             }
         }
 
-        
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            flatedit = flatedit + 1;
+            if(flatedit==1)
+            {
+                EditWindow edit = new EditWindow();
+                edit.Show();
+
+            }
+            
+        }
     }
 }

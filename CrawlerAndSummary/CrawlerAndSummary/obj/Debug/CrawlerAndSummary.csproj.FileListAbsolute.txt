@@ -191,3 +191,5 @@ C:\Users\Admin\Source\Repos\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummar
 C:\Users\Admin\Source\Repos\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\obj\Debug\CrawlerAndSummary.exe.licenses
 C:\Users\Admin\Source\Repos\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\obj\Debug\CrawlerAndSummary.exe
 C:\Users\Admin\Source\Repos\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\obj\Debug\CrawlerAndSummary.pdb
+E:\DoAnCNPMCS\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\obj\Debug\EditWindow.g.cs
+E:\DoAnCNPMCS\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\obj\Debug\EditWindow.baml
