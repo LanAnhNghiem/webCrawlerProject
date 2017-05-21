@@ -136,6 +136,7 @@ namespace CrawlerAndSummary
         #endregion
         private bool isValidEmail(string email)
         {
+            //hardcode regular exception
             Regex regex = new Regex(@"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*"
                                     + "@"
                                     + @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$");
@@ -152,6 +153,7 @@ namespace CrawlerAndSummary
 
         private bool isValidDay(string day)
         {
+            //hardcode
             Regex regex = new Regex("^[1-9]\\d*$");
             Match match = regex.Match(day);
             if (match.Success)
@@ -165,6 +167,7 @@ namespace CrawlerAndSummary
             if (!string.IsNullOrWhiteSpace(emailTxtBox.Text) && isValidEmail(emailTxtBox.Text) &&
                 !string.IsNullOrWhiteSpace(daysTxtBox.Text) && isValidDay(daysTxtBox.Text))
             {
+                //hardcode "Please check your email to get Your Serial Key."
                 MessageBox.Show("Please check your email to get Your Serial Key.");
                 sendInfo();
                 socket.On("server-send-client-id", data =>
@@ -177,6 +180,7 @@ namespace CrawlerAndSummary
             }
             else
             {
+                //hardcode chuỗi
                 emailLb.Content = "Enter your email.";
                 daysLb.Content = "Enter trial days";
             }
@@ -191,6 +195,7 @@ namespace CrawlerAndSummary
 
         private void emailTxtBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            //hardcode chuỗi
             if (isValidEmail(emailTxtBox.Text))
             {
                 emailLb.Content = "Valid Email";
@@ -203,6 +208,7 @@ namespace CrawlerAndSummary
 
         private void daysTxtBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            //hardcode chuỗi
             if (!isValidDay(daysTxtBox.Text))
             {
                 daysLb.Content = "Day only contains number from 1 to 99";
@@ -222,6 +228,7 @@ namespace CrawlerAndSummary
                 socket.On("check-valid-key-result", data => {
                     dataString = data.ToString();
                 });
+                //hardcode chuỗi
                 if (dataString == "0")
                 {
                     keyLb.Content = "Invalid Serial Key.";

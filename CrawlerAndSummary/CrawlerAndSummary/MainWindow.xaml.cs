@@ -131,7 +131,7 @@ namespace CrawlerAndSummary
 
             webBrowser.Navigate(link);
             tm = new System.Windows.Forms.Timer();
-            tm.Interval = 3000;
+            tm.Interval = 3000;//hardcode
             tm.Tick += new EventHandler(tm_Tick);
 
         }
@@ -197,6 +197,7 @@ namespace CrawlerAndSummary
             string text = "";
 
             string HTML = doc.DocumentNode.InnerHtml;
+            //hardcode chuỗi regular exception
             string[] pattern = new string[] { @"<head>[^>]*>[\s\S]*?</head>", @"<ul[^>]*>[\s\S]*?</ul>", @"<script[^>]*>[\s\S]*?</script>", @"<style[^>]*>[\s\S]*?</style>", @"<!--[\s\S]*?-->", @"<form[^>]*>[\s\S]*?</form>", @"&[\s\S]*?;", @"<footer[^>]*>[\s\S]*?</footer>", @"<div class=" + "\"footer\">" + @"[^>]*>[\s\S]*?</div>" };
             Regex regex = new Regex(string.Join("|", pattern), RegexOptions.IgnoreCase);
             HTML = regex.Replace(HTML, "");
@@ -244,6 +245,7 @@ namespace CrawlerAndSummary
         }
         private void summarize()
         {
+            //hardcode key "omFDgdAsRAmshCbOhXoIKwsebnAEp14idUOjsn2UxGevxvi8Y8"
             HttpResponse<String> response = Unirest.post("https://textanalysis-text-summarization.p.mashape.com/text-summarizer-text")
                 .header("X-Mashape-Authorization", "omFDgdAsRAmshCbOhXoIKwsebnAEp14idUOjsn2UxGevxvi8Y8")
                 //.header("Content-Type", "application/x-www-form-urlencoded")
@@ -277,6 +279,7 @@ namespace CrawlerAndSummary
         }
         private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
+            //hardcode 0.5s
             Duration duration = new Duration(TimeSpan.FromSeconds(0.5));
             DoubleAnimation animation = new DoubleAnimation(e.ProgressPercentage, duration);
             processBar.BeginAnimation(System.Windows.Controls.ProgressBar.ValueProperty, animation);
