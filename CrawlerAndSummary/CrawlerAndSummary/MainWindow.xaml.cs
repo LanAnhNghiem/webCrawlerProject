@@ -22,6 +22,8 @@ using System.Threading;
 using System.Windows.Media.Animation;
 using System.ComponentModel;
 using Quobject.SocketIoClientDotNet.Client;
+using System.IO;
+
 namespace CrawlerAndSummary
 {
     /// <summary>
@@ -39,6 +41,9 @@ namespace CrawlerAndSummary
         private string sub_string = "";
         public static int flat = 0;
         public static int flatedit = 0;
+        private int tmInterval;
+        private string key;
+        private float timespan;
         Socket socket = IO.Socket("https://web-crawler-app.herokuapp.com");
         public MainWindow()
         {
@@ -49,25 +54,35 @@ namespace CrawlerAndSummary
         private void MainWindow1_Loaded(object sender, RoutedEventArgs e)
         {
             searchBtn.IsEnabled = false;
-            XmlTextReader xml = new XmlTextReader("ThamSo.xml");
-            while (xml.Read())
-            {
-                if (xml.Name == "SoUrl")
-                {
-                    SoUrl = xml.ReadElementContentAsInt();
-                }
-                if (xml.Name == "SoCau")
-                {
-                    SoCau = xml.ReadElementContentAsInt();
-                }
-            }
+            ReadXMLColor();
+            ReadXmlThamSoEdit();
             //check registration
-            checkRegistration();
+     //       checkRegistration();
             //enable background worker
             worker.WorkerReportsProgress = true;
             worker.ProgressChanged += backgroundWorker_ProgressChanged;
             worker.DoWork += backgroundWorker_DoWork;
             worker.RunWorkerCompleted += backgroundWordker_RunWorkerCompleted;
+        }
+
+        private void ReadXmlThamSoEdit()
+        {
+            XmlTextReader xmledit = new XmlTextReader("ThamSoEdit.xml");
+            while (xmledit.Read())
+            {
+                if (xmledit.Name == "tmInterval")
+                {
+                    tmInterval = xmledit.ReadElementContentAsInt();
+                }
+                if (xmledit.Name == "keyrg")
+                {
+                    key = xmledit.ReadElementContentAsString();
+                }
+                if (xmledit.Name == "durationTimerg")
+                {
+                    timespan = xmledit.ReadElementContentAsFloat();
+                }
+            }
         }
         private void checkRegistration()
         {
@@ -95,6 +110,69 @@ namespace CrawlerAndSummary
             else
                 changeWindow();
         }
+        private void ReadXMLColor()
+        {
+            XmlTextReader xml = new XmlTextReader("Color.xml");
+            byte BgA = 0, BgR = 0, BgG = 0, BgB = 0, txtA = 0, txtR = 0, txtG = 0, txtB = 0, btnA = 0, btnR = 0, btnG = 0, btnB = 0 ;
+            while (xml.Read())
+            {
+                if (xml.Name == "BgA")
+                {
+                   BgA = Convert.ToByte(xml.ReadElementContentAsInt());
+                   
+                }
+                if(xml.Name == "BgR")
+                {
+                   BgR = Convert.ToByte(xml.ReadElementContentAsInt());
+                }
+                if(xml.Name == "BgG")
+                {
+                   BgG = Convert.ToByte(xml.ReadElementContentAsInt());
+                }
+                if(xml.Name == "BgB")
+                {
+                    BgB = Convert.ToByte(xml.ReadElementContentAsInt());
+                }
+                if(xml.Name == "txtA")
+                {
+                    txtA = Convert.ToByte(xml.ReadElementContentAsInt());
+                }
+                if(xml.Name == "txtR")
+                {
+                    txtR = Convert.ToByte(xml.ReadElementContentAsInt());
+                }
+                if(xml.Name == "txtG")
+                {
+                    txtG = Convert.ToByte(xml.ReadElementContentAsInt());
+                }
+                if(xml.Name == "txtB")
+                {
+                    txtB = Convert.ToByte(xml.ReadElementContentAsInt());
+                }
+                if(xml.Name == "btnA")
+                {
+                    btnA = Convert.ToByte(xml.ReadElementContentAsInt());
+                }
+                if(xml.Name == "btnR")
+                {
+                    btnR = Convert.ToByte(xml.ReadElementContentAsInt());
+                }
+                if(xml.Name == "btnG")
+                {
+                    btnG = Convert.ToByte(xml.ReadElementContentAsInt());
+                }
+                if(xml.Name == "btnB")
+                {
+                    btnB = Convert.ToByte(xml.ReadElementContentAsInt());
+                }
+            }
+            this.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(BgA, BgR, BgG, BgB));
+            this.searchTxtBox.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(txtA, txtR, txtG, txtB));
+            this.resultTxtBox.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(txtA, txtR, txtG, txtB));
+            this.listBox.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(txtA, txtR, txtG, txtB));
+            this.button.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(btnA, btnR, btnG, btnB));
+            this.searchBtn.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(btnA, btnR, btnG, btnB));
+        }
         private void changeWindow()
         {
             this.Hide();
@@ -107,7 +185,19 @@ namespace CrawlerAndSummary
         }
         private void searchBtn_Click(object sender, RoutedEventArgs e)
         {
-            if(!worker.IsBusy)
+            XmlTextReader xml = new XmlTextReader("ThamSo.xml");
+            while (xml.Read())
+            {
+                if (xml.Name == "SoUrl")
+                {
+                    SoUrl = xml.ReadElementContentAsInt();
+                }
+                if (xml.Name == "SoCau")
+                {
+                    SoCau = xml.ReadElementContentAsInt();
+                }
+            }
+            if (!worker.IsBusy)
             {
                 listBox.Items.Clear();
                 resultTxtBox.Clear();
@@ -131,7 +221,7 @@ namespace CrawlerAndSummary
 
             webBrowser.Navigate(link);
             tm = new System.Windows.Forms.Timer();
-            tm.Interval = 3000;//hardcode
+            tm.Interval = tmInterval;//hardcode
             tm.Tick += new EventHandler(tm_Tick);
 
         }
@@ -151,6 +241,8 @@ namespace CrawlerAndSummary
             //List<string> titles = new List<string>();
             String url = "";
             //String title = "";
+            string[] lines = File.ReadAllLines("link.txt");
+     
             if (link.Count > 0)
             {
                 for (int i = 0; i < link.Count; i++)
@@ -158,11 +250,28 @@ namespace CrawlerAndSummary
                     if (link[i].OuterHtml.Contains("onmousedown") && !link[i].OuterHtml.Contains("class=\"fl\"") && !link[i].OuterHtml.Contains("google"))
                     {
                         url = System.Uri.UnescapeDataString(link[i].GetAttribute("href"));
-                        if(!url.StartsWith("https://www.youtube") && !url.EndsWith("/"))
+                        int j;
+                        for(j = 0; j < lines.Count(); j++)
                         {
+                            if(url.Contains(lines[j]))
+                            {
+
+                                break;
+
+                            }
+                        }
+
+                        if(j==21)
+                        {
+
                             listBox.Items.Add(url);
                             listLinks.Add(url);
                         }
+                        //if(!url.StartsWith("https://www.youtube") && !url.EndsWith("/"))
+                        //{
+                        //    listBox.Items.Add(url);
+                        //    listLinks.Add(url);
+                        //}
                         //title = System.Uri.UnescapeDataString(link[i].InnerHtml);
                         //titles.Add(title);
                     }
@@ -247,7 +356,7 @@ namespace CrawlerAndSummary
         {
             //hardcode key "omFDgdAsRAmshCbOhXoIKwsebnAEp14idUOjsn2UxGevxvi8Y8"
             HttpResponse<String> response = Unirest.post("https://textanalysis-text-summarization.p.mashape.com/text-summarizer-text")
-                .header("X-Mashape-Authorization", "omFDgdAsRAmshCbOhXoIKwsebnAEp14idUOjsn2UxGevxvi8Y8")
+                .header("X-Mashape-Authorization", key)
                 //.header("Content-Type", "application/x-www-form-urlencoded")
                 .header("Accept", "application/json")
                 .field("sentnum", SoCau)
@@ -280,7 +389,7 @@ namespace CrawlerAndSummary
         private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             //hardcode 0.5s
-            Duration duration = new Duration(TimeSpan.FromSeconds(0.5));
+            Duration duration = new Duration(TimeSpan.FromSeconds(timespan));
             DoubleAnimation animation = new DoubleAnimation(e.ProgressPercentage, duration);
             processBar.BeginAnimation(System.Windows.Controls.ProgressBar.ValueProperty, animation);
         }

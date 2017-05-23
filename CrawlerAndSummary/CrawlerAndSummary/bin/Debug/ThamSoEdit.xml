@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ThamSo>
+<tmInterval>3000</tmInterval>
+<keyrg>omFDgdAsRAmshCbOhXoIKwsebnAEp14idUOjsn2UxGevxvi8Y8</keyrg>
+<durationTimerg>0.5</durationTimerg>
+<checkemail>Please check your email to get Your Serial Key.</checkemail>
+<enteremail>Enter your email.</enteremail>
+<enterday>Enter trial days</enterday>
+<validemail>Valid Email</validemail>
+<invalidemail>Invalid Email</invalidemail>
+<validday>Day only contains number from 1 to 99</validday>
+<invalidday>Valid Day</invalidday>
+<validkey>Valid Serial Key.</validkey>
+<invalidkey>Invalid Serial Key.</invalidkey>
+<messagesuss>Success</messagesuss>
+<messageerr>Error</messageerr>
+</ThamSo>

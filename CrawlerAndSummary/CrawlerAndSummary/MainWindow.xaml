@@ -6,28 +6,32 @@
         xmlns:local="clr-namespace:CrawlerAndSummary"
         xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" x:Name="MainWindow1" x:Class="CrawlerAndSummary.MainWindow" Icon="Resources/analysis.ico"
-        mc:Ignorable="d" Width="900" Height="500"  Background="#FF2F2C38" Loaded="MainWindow1_Loaded" WindowStartupLocation="CenterScreen">
+        mc:Ignorable="d" Width="900" Height="500"  Background="#FF2F2C38" Loaded="MainWindow1_Loaded" WindowStartupLocation="CenterScreen" TabIndex="2147483644">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="148*"/>
+            <ColumnDefinition Width="75*"/>
+        </Grid.ColumnDefinitions>
         <Grid.Background>
             <ImageBrush/>
         </Grid.Background>
-        <WindowsFormsHost Width="20" Height="20" Margin="862,10,10,439" Visibility="Hidden">
+        <WindowsFormsHost Width="20" Height="20" Margin="270.135,10,10,439" Visibility="Hidden" Grid.Column="1">
             <wf:WebBrowser x:Name="webBrowser" Height="20" Margin="830,0,0,0" Width="20" DocumentCompleted="webBrowser_DocumentCompleted"/>
         </WindowsFormsHost>
-        <Label x:Name="label" Margin="-2,0,10,419" Height="50" FontSize="30" Foreground="#FFF3B562" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top"/>
+        <Label x:Name="label" Margin="-2,0,10,0" Height="50" FontSize="30" Foreground="#FFF3B562" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
         <TextBox x:Name="searchTxtBox" HorizontalAlignment="Left" Height="24" Margin="59,70,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="250" Background="#FF2F2C38" Foreground="White" FontSize="15" BorderBrush="#FF474747" SelectionBrush="#FFF06060" PreviewKeyDown="searchTxtBox_PreviewKeyDown" TextChanged="searchTxtBox_TextChanged"/>
         <Button x:Name="searchBtn" Content="Search" HorizontalAlignment="Left" Margin="344,69,0,0" VerticalAlignment="Top" Width="75" Background="#FFF06060" Foreground="White" FontSize="15" Click="searchBtn_Click"/>
         <Label x:Name="label1" Content="URL list" HorizontalAlignment="Left" Margin="35,109,0,0" VerticalAlignment="Top" Foreground="#FF8CBEBD" FontSize="18"/>
         <Label x:Name="label1_Copy" Content="Result" HorizontalAlignment="Left" Margin="424,109,0,0" VerticalAlignment="Top" Foreground="#FF8CBEBD" FontSize="18"/>
         <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="264" Margin="35,158,0,0" VerticalAlignment="Top" Width="384" Foreground="White" Background="#FF2F2C38" BorderBrush="#FF474747"/>
-        <TextBox x:Name="resultTxtBox" HorizontalAlignment="Left" Height="264" Margin="424,158,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="424" Background="#FF2F2C38" Foreground="White" BorderBrush="#FF474747" FontSize="18" SelectionBrush="#FF8CBEBD" IsReadOnly="True"/>
-        <ProgressBar x:Name="processBar" Height="14" Margin="35,438,44,0" VerticalAlignment="Top" Width="813" Foreground="#FFF06060" Maximum="100" Value="0"/>
-        <Button x:Name="helpBtn" Margin="15,15,840,419" Background="{x:Null}" BorderBrush="{x:Null}" RenderTransformOrigin="-0.42,0.44" Click="helpBtn_Click" >
+        <TextBox x:Name="resultTxtBox" HorizontalAlignment="Left" Height="264" Margin="424,158,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="424" Background="#FF2F2C38" Foreground="White" BorderBrush="#FF474747" FontSize="18" SelectionBrush="#FF8CBEBD" IsReadOnly="True" Grid.ColumnSpan="2"/>
+        <ProgressBar x:Name="processBar" Height="14" Margin="35,438,44,0" VerticalAlignment="Top" Width="813" Foreground="#FFF06060" Maximum="100" Value="0" Grid.ColumnSpan="2"/>
+        <Button x:Name="helpBtn" Margin="15,15,539.865,419" Background="{x:Null}" BorderBrush="{x:Null}" RenderTransformOrigin="-0.42,0.44" Click="helpBtn_Click" >
             <StackPanel Orientation="Horizontal">
                 <Image Source="Resources/help.png" Stretch="Uniform"/>
             </StackPanel>
         </Button>
-        <Button x:Name="copyBtn" Background="{x:Null}" BorderBrush="{x:Null}" RenderTransformOrigin="-0.42,0.44" Margin="804,109,44,318" Click="copyBtn_Click" >
+        <Button x:Name="copyBtn" Background="{x:Null}" BorderBrush="{x:Null}" RenderTransformOrigin="-0.42,0.44" Margin="212.135,109,44,318" Click="copyBtn_Click" Grid.Column="1" >
             <StackPanel Orientation="Horizontal">
                 <Image x:Name="copyImg" Source="Resources/copy.png" Stretch="Uniform" Width="36"/>
             </StackPanel>

@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Quobject.SocketIoClientDotNet.Client;
 using System.Text.RegularExpressions;
+using System.Xml;
 
 namespace CrawlerAndSummary
 {
@@ -21,11 +22,68 @@ namespace CrawlerAndSummary
     /// </summary>
     public partial class Registration : Window
     {
+        private string checkemail;
+        private string enteremail;
+        private string enterday;
+        private string validemail;
+        private string invalidemail;
+        private string validday;
+        private string invalidday;
+        private string validkey;
+        private string invalidkey;
         Socket socket = IO.Socket("https://web-crawler-app.herokuapp.com");
         public Registration()
         {
             InitializeComponent();
             socketIOManager();
+            readXml();
+        }
+
+        private void readXml()
+        {
+            XmlTextReader xmledit = new XmlTextReader("ThamSoEdit.xml");
+
+            while (xmledit.Read())
+            {
+                if (xmledit.Name == "checkemail")
+                {
+                    checkemail = xmledit.ReadElementContentAsString();
+                }
+                if (xmledit.Name == "enteremail")
+                {
+                    enteremail = xmledit.ReadElementContentAsString(); ;
+                }
+
+                if (xmledit.Name == "enterday")
+                {
+                    enterday = xmledit.ReadElementContentAsString();
+                }
+                if (xmledit.Name == "validemail")
+                {
+                    validemail = xmledit.ReadElementContentAsString(); ;
+                }
+                if (xmledit.Name == "invalidemail")
+                {
+                    invalidemail = xmledit.ReadElementContentAsString();
+
+                }
+                if (xmledit.Name == "validday")
+                {
+                    validday = xmledit.ReadElementContentAsString();
+                }
+                if (xmledit.Name == "invalidday")
+                {
+                    invalidday = xmledit.ReadElementContentAsString();
+                }
+                if (xmledit.Name == "validkey")
+                {
+                    validkey = xmledit.ReadElementContentAsString();
+                }
+                if (xmledit.Name == "invalidkey")
+                {
+                    invalidkey = xmledit.ReadElementContentAsString();
+                }
+            }
         }
         private void socketIOManager()
         {
@@ -168,7 +226,7 @@ namespace CrawlerAndSummary
                 !string.IsNullOrWhiteSpace(daysTxtBox.Text) && isValidDay(daysTxtBox.Text))
             {
                 //hardcode "Please check your email to get Your Serial Key."
-                MessageBox.Show("Please check your email to get Your Serial Key.");
+                MessageBox.Show(checkemail);
                 sendInfo();
                 socket.On("server-send-client-id", data =>
                 {
@@ -181,8 +239,11 @@ namespace CrawlerAndSummary
             else
             {
                 //hardcode chuỗi
-                emailLb.Content = "Enter your email.";
-                daysLb.Content = "Enter trial days";
+                //emailLb.Content = "Enter your email.";
+                //daysLb.Content = "Enter trial days";
+                emailLb.Content = enteremail;
+                daysLb.Content = enterday;
+
             }
         }
         private void sendInfo()
@@ -198,11 +259,13 @@ namespace CrawlerAndSummary
             //hardcode chuỗi
             if (isValidEmail(emailTxtBox.Text))
             {
-                emailLb.Content = "Valid Email";
+                //    emailLb.Content = "Valid Email";
+                emailLb.Content = validemail;
             }
             else
             {
-                emailLb.Content = "Invalid Email";
+                // emailLb.Content = "Invalid Email";
+                emailLb.Content = invalidemail;
             }
         }
 
@@ -211,11 +274,13 @@ namespace CrawlerAndSummary
             //hardcode chuỗi
             if (!isValidDay(daysTxtBox.Text))
             {
-                daysLb.Content = "Day only contains number from 1 to 99";
+                //  daysLb.Content = "Day only contains number from 1 to 99";
+                daysLb.Content = validday;
             }
             else
             {
-                daysLb.Content = "Valid Day";
+                //   daysLb.Content = "Valid Day";
+                daysLb.Content = invalidday;
             }
         }
 
@@ -231,11 +296,13 @@ namespace CrawlerAndSummary
                 //hardcode chuỗi
                 if (dataString == "0")
                 {
-                    keyLb.Content = "Invalid Serial Key.";
+                    //   keyLb.Content = "Invalid Serial Key.";
+                    keyLb.Content = invalidkey;
                 }
                 else
                 {
-                    keyLb.Content = "Valid Serial Key.";
+                    //   keyLb.Content = "Valid Serial Key.";
+                    keyLb.Content = validkey;
                     this.Hide();
                     MainWindow main = new MainWindow();
                     main.Show();
@@ -243,7 +310,8 @@ namespace CrawlerAndSummary
                 }
             }
             else
-                keyLb.Content = "Invalid Serial Key.";
+                //  keyLb.Content = "Invalid Serial Key.";
+                keyLb.Content = invalidkey;
         }
         
     }
