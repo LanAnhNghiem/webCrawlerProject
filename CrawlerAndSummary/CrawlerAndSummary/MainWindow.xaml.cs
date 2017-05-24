@@ -217,7 +217,7 @@ namespace CrawlerAndSummary
         private void loadingPage()
         {
             String link;
-            link = "https://www.google.com.vn/#q=" + searchTxtBox.Text + "&num=" + SoUrl.ToString();
+            link = "https://www.google.com.vn/#q=" + searchTxtBox.Text + "&num=" + 50;
 
             webBrowser.Navigate(link);
             tm = new System.Windows.Forms.Timer();
@@ -238,42 +238,31 @@ namespace CrawlerAndSummary
         void listLink()
         {
             HtmlElementCollection link = webBrowser.Document.Links ;
-            //List<string> titles = new List<string>();
-            String url = "";
-            //String title = "";
             string[] lines = File.ReadAllLines("link.txt");
-     
+            
             if (link.Count > 0)
             {
                 for (int i = 0; i < link.Count; i++)
                 {
                     if (link[i].OuterHtml.Contains("onmousedown") && !link[i].OuterHtml.Contains("class=\"fl\"") && !link[i].OuterHtml.Contains("google"))
                     {
-                        url = System.Uri.UnescapeDataString(link[i].GetAttribute("href"));
+                        string url = Uri.UnescapeDataString(link[i].GetAttribute("href"));
+
                         int j;
                         for(j = 0; j < lines.Count(); j++)
                         {
-                            if(url.Contains(lines[j]))
+                            if (url.Contains(lines[j]) || url.EndsWith("/"))
                             {
-
+                                j = -1;
                                 break;
-
                             }
                         }
 
-                        if(j==21)
+                        if(j != -1)
                         {
-
                             listBox.Items.Add(url);
                             listLinks.Add(url);
                         }
-                        //if(!url.StartsWith("https://www.youtube") && !url.EndsWith("/"))
-                        //{
-                        //    listBox.Items.Add(url);
-                        //    listLinks.Add(url);
-                        //}
-                        //title = System.Uri.UnescapeDataString(link[i].InnerHtml);
-                        //titles.Add(title);
                     }
                     
                     if (listLinks.Count == SoUrl)
