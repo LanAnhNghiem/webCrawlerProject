@@ -45,6 +45,10 @@ namespace CrawlerAndSummary
         private string key;
         private float timespan;
         Socket socket = IO.Socket("https://web-crawler-app.herokuapp.com");
+        string backgroundValue;
+        string tbFgValue;
+        string lbFgValue;
+        string btnBgValue;
         public MainWindow()
         {
             InitializeComponent();
@@ -54,11 +58,13 @@ namespace CrawlerAndSummary
         private void MainWindow1_Loaded(object sender, RoutedEventArgs e)
         {
             searchBtn.IsEnabled = false;
-            ReadXMLColor();
+            if (Properties.Settings.Default.Color == true)
+                readMode("D");
+            else
+                readMode("L");
+            editMainColor();
             ReadXmlThamSoEdit();
-            //check registration
-     //       checkRegistration();
-            //enable background worker
+
             worker.WorkerReportsProgress = true;
             worker.ProgressChanged += backgroundWorker_ProgressChanged;
             worker.DoWork += backgroundWorker_DoWork;
@@ -110,68 +116,44 @@ namespace CrawlerAndSummary
             else
                 changeWindow();
         }
-        private void ReadXMLColor()
+        private void readMode(string mode)
         {
-            XmlTextReader xml = new XmlTextReader("Color.xml");
-            byte BgA = 0, BgR = 0, BgG = 0, BgB = 0, txtA = 0, txtR = 0, txtG = 0, txtB = 0, btnA = 0, btnR = 0, btnG = 0, btnB = 0 ;
-            while (xml.Read())
+            XmlTextReader xmledit = new XmlTextReader("ThamSoEdit.xml");
+            while (xmledit.Read())
             {
-                if (xml.Name == "BgA")
+                if (xmledit.Name == "BgValue" + mode)
                 {
-                   BgA = Convert.ToByte(xml.ReadElementContentAsInt());
-                   
+                    backgroundValue = xmledit.ReadElementContentAsString();
                 }
-                if(xml.Name == "BgR")
+                if (xmledit.Name == "tbFgValue" + mode)
                 {
-                   BgR = Convert.ToByte(xml.ReadElementContentAsInt());
+                    tbFgValue = xmledit.ReadElementContentAsString();
                 }
-                if(xml.Name == "BgG")
+                if (xmledit.Name == "lbFgValue" + mode)
                 {
-                   BgG = Convert.ToByte(xml.ReadElementContentAsInt());
+                    lbFgValue = xmledit.ReadElementContentAsString();
                 }
-                if(xml.Name == "BgB")
+                if (xmledit.Name == "btnBgValue" + mode)
                 {
-                    BgB = Convert.ToByte(xml.ReadElementContentAsInt());
-                }
-                if(xml.Name == "txtA")
-                {
-                    txtA = Convert.ToByte(xml.ReadElementContentAsInt());
-                }
-                if(xml.Name == "txtR")
-                {
-                    txtR = Convert.ToByte(xml.ReadElementContentAsInt());
-                }
-                if(xml.Name == "txtG")
-                {
-                    txtG = Convert.ToByte(xml.ReadElementContentAsInt());
-                }
-                if(xml.Name == "txtB")
-                {
-                    txtB = Convert.ToByte(xml.ReadElementContentAsInt());
-                }
-                if(xml.Name == "btnA")
-                {
-                    btnA = Convert.ToByte(xml.ReadElementContentAsInt());
-                }
-                if(xml.Name == "btnR")
-                {
-                    btnR = Convert.ToByte(xml.ReadElementContentAsInt());
-                }
-                if(xml.Name == "btnG")
-                {
-                    btnG = Convert.ToByte(xml.ReadElementContentAsInt());
-                }
-                if(xml.Name == "btnB")
-                {
-                    btnB = Convert.ToByte(xml.ReadElementContentAsInt());
+                    btnBgValue = xmledit.ReadElementContentAsString();
                 }
             }
-            this.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(BgA, BgR, BgG, BgB));
-            this.searchTxtBox.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(txtA, txtR, txtG, txtB));
-            this.resultTxtBox.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(txtA, txtR, txtG, txtB));
-            this.listBox.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(txtA, txtR, txtG, txtB));
-            this.button.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(btnA, btnR, btnG, btnB));
-            this.searchBtn.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(btnA, btnR, btnG, btnB));
+            xmledit.Close();
+        }
+        private void editMainColor()
+        {
+            BrushConverter brushConverter = new BrushConverter();
+            this.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
+            this.resultTxtBox.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
+            this.resultTxtBox.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
+            this.searchTxtBox.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
+            this.searchTxtBox.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
+            this.listBox.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
+            this.listBox.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
+            this.searchBtn.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(btnBgValue);
+            this.searchBtn.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
+            this.URLLb.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
+            this.ResultLb.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
         }
         private void changeWindow()
         {

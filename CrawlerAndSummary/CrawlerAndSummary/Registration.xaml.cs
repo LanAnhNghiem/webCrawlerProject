@@ -32,6 +32,10 @@ namespace CrawlerAndSummary
         private string validkey;
         private string invalidkey;
         Socket socket = IO.Socket("https://web-crawler-app.herokuapp.com");
+        string backgroundValue;
+        string tbFgValue;
+        string lbFgValue;
+        string btnBgValue;
         public Registration()
         {
             InitializeComponent();
@@ -65,7 +69,6 @@ namespace CrawlerAndSummary
                 if (xmledit.Name == "invalidemail")
                 {
                     invalidemail = xmledit.ReadElementContentAsString();
-
                 }
                 if (xmledit.Name == "validday")
                 {
@@ -84,6 +87,45 @@ namespace CrawlerAndSummary
                     invalidkey = xmledit.ReadElementContentAsString();
                 }
             }
+        }
+        private void readMode(string mode)
+        {
+            XmlTextReader xmledit = new XmlTextReader("ThamSoEdit.xml");
+            while (xmledit.Read())
+            {
+                if (xmledit.Name == "BgValue" + mode)
+                {
+                    backgroundValue = xmledit.ReadElementContentAsString();
+                }
+                if (xmledit.Name == "tbFgValue" + mode)
+                {
+                    tbFgValue = xmledit.ReadElementContentAsString();
+                }
+                if (xmledit.Name == "lbFgValue" + mode)
+                {
+                    lbFgValue = xmledit.ReadElementContentAsString();
+                }
+                if (xmledit.Name == "btnBgValue" + mode)
+                {
+                    btnBgValue = xmledit.ReadElementContentAsString();
+                }
+            }
+            xmledit.Close();
+        }
+        private void editMainColor()
+        {
+            BrushConverter brushConverter = new BrushConverter();
+            this.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
+            this.resultTxtBox.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
+            this.resultTxtBox.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
+            this.searchTxtBox.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
+            this.searchTxtBox.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
+            this.listBox.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
+            this.listBox.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
+            this.searchBtn.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(btnBgValue);
+            this.searchBtn.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
+            this.URLLb.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
+            this.ResultLb.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
         }
         private void socketIOManager()
         {
@@ -194,7 +236,6 @@ namespace CrawlerAndSummary
         #endregion
         private bool isValidEmail(string email)
         {
-            //hardcode regular exception
             Regex regex = new Regex(@"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*"
                                     + "@"
                                     + @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$");
@@ -225,22 +266,17 @@ namespace CrawlerAndSummary
             if (!string.IsNullOrWhiteSpace(emailTxtBox.Text) && isValidEmail(emailTxtBox.Text) &&
                 !string.IsNullOrWhiteSpace(daysTxtBox.Text) && isValidDay(daysTxtBox.Text))
             {
-                //hardcode "Please check your email to get Your Serial Key."
                 MessageBox.Show(checkemail);
                 sendInfo();
                 socket.On("server-send-client-id", data =>
                 {
                     Properties.Settings.Default.ID = (string)data;
                     Properties.Settings.Default.Save();
-                    //MessageBox.Show((string)Properties.Settings.Default.ID);
                 });
                 getKeyBtn.IsEnabled = false;
             }
             else
             {
-                //hardcode chuỗi
-                //emailLb.Content = "Enter your email.";
-                //daysLb.Content = "Enter trial days";
                 emailLb.Content = enteremail;
                 daysLb.Content = enterday;
 
@@ -256,30 +292,24 @@ namespace CrawlerAndSummary
 
         private void emailTxtBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //hardcode chuỗi
             if (isValidEmail(emailTxtBox.Text))
             {
-                //    emailLb.Content = "Valid Email";
                 emailLb.Content = validemail;
             }
             else
             {
-                // emailLb.Content = "Invalid Email";
                 emailLb.Content = invalidemail;
             }
         }
 
         private void daysTxtBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //hardcode chuỗi
             if (!isValidDay(daysTxtBox.Text))
             {
-                //  daysLb.Content = "Day only contains number from 1 to 99";
                 daysLb.Content = validday;
             }
             else
             {
-                //   daysLb.Content = "Valid Day";
                 daysLb.Content = invalidday;
             }
         }
@@ -287,21 +317,18 @@ namespace CrawlerAndSummary
         private void registerBtn_Click(object sender, RoutedEventArgs e)
         {
             string dataString = "";
-            if (!string.IsNullOrEmpty((string)Properties.Settings.Default.ID) && !string.IsNullOrWhiteSpace(keyTxtBox.Text.Trim()))
+            if (!string.IsNullOrEmpty((string)Properties.Settings.Default.ID) || !string.IsNullOrWhiteSpace(keyTxtBox.Text.Trim()))
             {
                 socket.Emit("check-valid-key", (keyTxtBox.Text.Trim() + "*" + Properties.Settings.Default.ID));
                 socket.On("check-valid-key-result", data => {
                     dataString = data.ToString();
                 });
-                //hardcode chuỗi
                 if (dataString == "0")
                 {
-                    //   keyLb.Content = "Invalid Serial Key.";
                     keyLb.Content = invalidkey;
                 }
                 else
                 {
-                    //   keyLb.Content = "Valid Serial Key.";
                     keyLb.Content = validkey;
                     this.Hide();
                     MainWindow main = new MainWindow();
@@ -310,7 +337,6 @@ namespace CrawlerAndSummary
                 }
             }
             else
-                //  keyLb.Content = "Invalid Serial Key.";
                 keyLb.Content = invalidkey;
         }
         

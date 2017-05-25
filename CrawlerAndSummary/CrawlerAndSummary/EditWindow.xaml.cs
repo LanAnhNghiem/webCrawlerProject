@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Xml;
 using System.Text.RegularExpressions;
+using System.Drawing;
 
 namespace CrawlerAndSummary
 {
@@ -25,27 +26,121 @@ namespace CrawlerAndSummary
         string soCauLoad;
         string messagesucc;
         string messageerr;
-        byte BgA, BgR, BgG, BgB, txtA, txtR, txtG, txtB, btnA, btnR, btnG, btnB;
-        byte BgtA, BgtR, BgtG, BgtB, txttA, txttR, txttG, txttB, btntA, btntR, btntG, btntB;
+        string backgroundValue;
+        string tbFgValue;
+        string lbFgValue;
+        string btnBgValue;
         int flatedit = 0;
+
+        private void lightRb_Click(object sender, RoutedEventArgs e)
+        {
+            readMode("L");
+            Properties.Settings.Default.Color = false;
+            Properties.Settings.Default.Save();
+        }
+
+        private void darkRb_Click(object sender, RoutedEventArgs e)
+        {
+            readMode("D");
+            Properties.Settings.Default.Color = true;
+            Properties.Settings.Default.Save();
+        }
+
+        private void editBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string soUrl = txtUrl.Text.Trim();
+            string soCau = txtSentences.Text.Trim();
+
+            if (String.IsNullOrWhiteSpace(soUrl) || String.IsNullOrWhiteSpace(soCau) || soUrl == "0" || soCau == "0" || !isNumber(soUrl) || !isNumber(soCau))
+            {
+                MessageBox.Show(messageerr);
+            }
+            else
+            {
+                XmlTextWriter xml = new XmlTextWriter("ThamSo.xml", Encoding.UTF8);
+                xml.WriteStartDocument();
+                xml.WriteStartElement("ThamSo");
+                xml.WriteElementString("SoUrl", soUrl);
+                xml.WriteElementString("SoCau", soCau);
+                xml.WriteEndElement();
+                xml.WriteEndDocument();
+                xml.Flush();
+                xml.Close();
+                editColor();
+                MessageBox.Show(messagesucc);
+                flatedit = 1;
+            }
+        }
+
+        private void editColor()
+        {
+            BrushConverter brushConverter = new BrushConverter();
+            this.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
+            this.txtUrl.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
+            this.txtUrl.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
+            this.txtSentences.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
+            this.txtSentences.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
+            this.soCauLb.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(lbFgValue);
+            this.soURLLb.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(lbFgValue);
+            this.editBtn.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
+            this.editBtn.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(btnBgValue);
+            this.BackgroundLb.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
+            this.BackgroundLb.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(lbFgValue);
+            this.groupBox.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
+            this.lightRb.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(lbFgValue);
+            this.darkRb.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(lbFgValue);
+            this.groupBox.BorderBrush = (System.Windows.Media.Brush)brushConverter.ConvertFrom(lbFgValue);
+        }
+
+        private void readMode(string mode)
+        {
+            XmlTextReader xmledit = new XmlTextReader("ThamSoEdit.xml");
+            while (xmledit.Read())
+            {
+                if (xmledit.Name == "BgValue"+mode)
+                {
+                    backgroundValue = xmledit.ReadElementContentAsString();
+                }
+                if (xmledit.Name == "tbFgValue"+mode)
+                {
+                    tbFgValue = xmledit.ReadElementContentAsString();
+                }
+                if (xmledit.Name == "lbFgValue"+mode)
+                {
+                    lbFgValue = xmledit.ReadElementContentAsString();
+                }
+                if (xmledit.Name == "btnBgValue"+mode)
+                {
+                    btnBgValue = xmledit.ReadElementContentAsString();
+                }
+            }
+            xmledit.Close();
+        }
+        
         public EditWindow()
         {
             InitializeComponent();
             readXml();
+            readURL_Sentences();
+            txtUrl.Text = urlLoad;
+            txtSentences.Text = soCauLoad;
+        }
+        private void readURL_Sentences()
+        {
             XmlTextReader xml = new XmlTextReader("ThamSo.xml");
             while (xml.Read())
             {
                 if (xml.Name == "SoUrl")
                 {
-                    urlLoad  = xml.ReadElementContentAsString();
+                    urlLoad = xml.ReadElementContentAsString();
                 }
                 if (xml.Name == "SoCau")
                 {
                     soCauLoad = xml.ReadElementContentAsString();
                 }
             }
-            txtUrl.Text = urlLoad;
-            txtSentences.Text = soCauLoad;
+            
+            xml.Close();
         }
 
         private void readXml()
@@ -54,7 +149,6 @@ namespace CrawlerAndSummary
 
             while (xmledit.Read())
             {
-                
                 if (xmledit.Name == "messagesuss") 
                 {
                     messagesucc = xmledit.ReadElementContentAsString();
@@ -64,10 +158,10 @@ namespace CrawlerAndSummary
                     messageerr = xmledit.ReadElementContentAsString();
                 }
             }
+            xmledit.Close();
         }
         private bool isNumber(string day)
         {
-            //hardcode
             Regex regex = new Regex("^[1-9]\\d*$");
             Match match = regex.Match(day);
             if (match.Success)
@@ -80,7 +174,7 @@ namespace CrawlerAndSummary
             string soUrl = txtUrl.Text.Trim();
             string soCau = txtSentences.Text.Trim();
 
-            if (soUrl == "" || soCau == "" || soUrl=="0" || soCau == "0" || !isNumber(soUrl) || !isNumber(soCau))
+            if (String.IsNullOrWhiteSpace(soUrl) || String.IsNullOrWhiteSpace(soCau) || soUrl=="0" || soCau == "0" || !isNumber(soUrl) || !isNumber(soCau))
             {
                 MessageBox.Show(messageerr);
             }
@@ -100,24 +194,24 @@ namespace CrawlerAndSummary
 
                 XmlTextWriter xml_color = new XmlTextWriter("Color.xml", Encoding.UTF8);
 
-                xml_color.WriteStartDocument();
-                xml_color.WriteStartElement("ThamSo");
-                xml_color.WriteElementString("BgA", BgA.ToString());
-                xml_color.WriteElementString("BgR", BgR.ToString());
-                xml_color.WriteElementString("BgG", BgG.ToString());
-                xml_color.WriteElementString("BgB", BgB.ToString());
-                xml_color.WriteElementString("txtA", txtA.ToString());
-                xml_color.WriteElementString("txtR", txtR.ToString());
-                xml_color.WriteElementString("txtG", txtG.ToString());
-                xml_color.WriteElementString("txtB", txtB.ToString());
-                xml_color.WriteElementString("btnA", btnA.ToString());
-                xml_color.WriteElementString("btnR", btnR.ToString());
-                xml_color.WriteElementString("btnG", btnG.ToString());
-                xml_color.WriteElementString("btnB", btnB.ToString());
-                xml_color.WriteEndElement();
-                xml_color.WriteEndDocument();
-                xml_color.Flush();
-                xml_color.Close();
+                //xml_color.WriteStartDocument();
+                //xml_color.WriteStartElement("ThamSo");
+                //xml_color.WriteElementString("BgA", BgA.ToString());
+                //xml_color.WriteElementString("BgR", BgR.ToString());
+                //xml_color.WriteElementString("BgG", BgG.ToString());
+                //xml_color.WriteElementString("BgB", BgB.ToString());
+                //xml_color.WriteElementString("txtA", txtA.ToString());
+                //xml_color.WriteElementString("txtR", txtR.ToString());
+                //xml_color.WriteElementString("txtG", txtG.ToString());
+                //xml_color.WriteElementString("txtB", txtB.ToString());
+                //xml_color.WriteElementString("btnA", btnA.ToString());
+                //xml_color.WriteElementString("btnR", btnR.ToString());
+                //xml_color.WriteElementString("btnG", btnG.ToString());
+                //xml_color.WriteElementString("btnB", btnB.ToString());
+                //xml_color.WriteEndElement();
+                //xml_color.WriteEndDocument();
+                //xml_color.Flush();
+                //xml_color.Close();
 
                 MessageBox.Show(messagesucc);
                 flatedit = 1;
@@ -127,156 +221,36 @@ namespace CrawlerAndSummary
         private void Window_Closed(object sender, EventArgs e)
         {
             MainWindow.flatedit = 0;
-            if(flatedit==0)
+            if(flatedit==1)
             {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(BgtA, BgtR, BgtG, BgtB));
-                ((MainWindow)System.Windows.Application.Current.MainWindow).resultTxtBox.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(txttA, txttR, txttG, txttB));
-                ((MainWindow)System.Windows.Application.Current.MainWindow).searchTxtBox.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(txttA, txttR, txttG, txttB));
-                ((MainWindow)System.Windows.Application.Current.MainWindow).listBox.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(txttA, txttR, txttG, txttB));
-                ((MainWindow)System.Windows.Application.Current.MainWindow).searchBtn.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(btntA, btntR, btntG, btntB));
+                editMainColor();
             }
-            
         }
-
-       
-
-        private void rdBackground_Click(object sender, RoutedEventArgs e)
+        private void editMainColor()
         {
-            System.Windows.Forms.ColorDialog colorPicker = new System.Windows.Forms.ColorDialog();
-
-            if (colorPicker.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(colorPicker.Color.A, colorPicker.Color.R, colorPicker.Color.G, colorPicker.Color.B));
-                this.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(colorPicker.Color.A, colorPicker.Color.R, colorPicker.Color.G, colorPicker.Color.B));
-                BgA = colorPicker.Color.A;
-                BgR = colorPicker.Color.R;
-                BgG = colorPicker.Color.G;
-                BgB = colorPicker.Color.B;
-            }
-           
-        }
-
-        private void rdTexboxt_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Forms.ColorDialog colorPicker = new System.Windows.Forms.ColorDialog();
-
-            if (colorPicker.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).resultTxtBox.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(colorPicker.Color.A, colorPicker.Color.R, colorPicker.Color.G, colorPicker.Color.B));
-                ((MainWindow)System.Windows.Application.Current.MainWindow).searchTxtBox.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(colorPicker.Color.A, colorPicker.Color.R, colorPicker.Color.G, colorPicker.Color.B));
-                ((MainWindow)System.Windows.Application.Current.MainWindow).listBox.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(colorPicker.Color.A, colorPicker.Color.R, colorPicker.Color.G, colorPicker.Color.B));
-          
-                this.txtUrl.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(colorPicker.Color.A, colorPicker.Color.R, colorPicker.Color.G, colorPicker.Color.B));
-                this.txtSentences.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(colorPicker.Color.A, colorPicker.Color.R, colorPicker.Color.G, colorPicker.Color.B));
-
-                txtA = colorPicker.Color.A;
-                txtR = colorPicker.Color.R;
-                txtG = colorPicker.Color.G;
-                txtB = colorPicker.Color.B;
-            }
-           
-
-        }
-
-        private void rdButton_Click(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Forms.ColorDialog colorPicker = new System.Windows.Forms.ColorDialog();
-
-            if (colorPicker.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                ((MainWindow)System.Windows.Application.Current.MainWindow).searchBtn.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(colorPicker.Color.A, colorPicker.Color.R, colorPicker.Color.G, colorPicker.Color.B));
-                
-                this.button.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(colorPicker.Color.A, colorPicker.Color.R, colorPicker.Color.G, colorPicker.Color.B));
-                
-                btnA = colorPicker.Color.A;
-                btnR = colorPicker.Color.R;
-                btnG = colorPicker.Color.G;
-                btnB = colorPicker.Color.B;
-
-            }
-           
-           
+            BrushConverter brushConverter = new BrushConverter();
+            ((MainWindow)System.Windows.Application.Current.MainWindow).Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
+            ((MainWindow)System.Windows.Application.Current.MainWindow).resultTxtBox.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
+            ((MainWindow)System.Windows.Application.Current.MainWindow).resultTxtBox.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
+            ((MainWindow)System.Windows.Application.Current.MainWindow).searchTxtBox.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
+            ((MainWindow)System.Windows.Application.Current.MainWindow).searchTxtBox.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
+            ((MainWindow)System.Windows.Application.Current.MainWindow).listBox.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
+            ((MainWindow)System.Windows.Application.Current.MainWindow).listBox.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
+            ((MainWindow)System.Windows.Application.Current.MainWindow).searchBtn.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(btnBgValue);
+            ((MainWindow)System.Windows.Application.Current.MainWindow).searchBtn.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
+            ((MainWindow)System.Windows.Application.Current.MainWindow).URLLb.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
+            ((MainWindow)System.Windows.Application.Current.MainWindow).ResultLb.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ColorXml();
-        }
-
-        private void ColorXml()
-        {
-            XmlTextReader xml = new XmlTextReader("Color.xml");
-     
-            while (xml.Read())
+            if (Properties.Settings.Default.Color == true)
             {
-                if (xml.Name == "BgA")
-                {
-                    BgA = Convert.ToByte(xml.ReadElementContentAsInt());
-                    BgtA = BgA;
-                }
-                if (xml.Name == "BgR")
-                {
-                    BgR = Convert.ToByte(xml.ReadElementContentAsInt());
-                    BgtR = BgR;
-                }
-                if (xml.Name == "BgG")
-                {
-                    BgG = Convert.ToByte(xml.ReadElementContentAsInt());
-                    BgtG = BgG;
-                }
-                if (xml.Name == "BgB")
-                {
-                    BgB = Convert.ToByte(xml.ReadElementContentAsInt());
-                    BgtB = BgB; 
-                }
-                if (xml.Name == "txtA")
-                {
-                    txtA = Convert.ToByte(xml.ReadElementContentAsInt());
-                    txttA = txtA;
-                }
-                if (xml.Name == "txtR")
-                {
-                    txtR = Convert.ToByte(xml.ReadElementContentAsInt());
-                    txttR = txtR;
-                }
-                if (xml.Name == "txtG")
-                {
-                    txtG = Convert.ToByte(xml.ReadElementContentAsInt());
-                    txttG = txtG;
-                }
-                if (xml.Name == "txtB")
-                {
-                    txtB = Convert.ToByte(xml.ReadElementContentAsInt());
-                    txttB = txtB;
-                }
-                if (xml.Name == "btnA")
-                {
-                    btnA = Convert.ToByte(xml.ReadElementContentAsInt());
-                    btntA = btnA;
-                }
-                if (xml.Name == "btnR")
-                {
-                    btnR = Convert.ToByte(xml.ReadElementContentAsInt());
-                    btntR = btnR;
-                }
-                if (xml.Name == "btnG")
-                {
-                    btnG = Convert.ToByte(xml.ReadElementContentAsInt());
-                    btntG = btnG;
-                }
-                if (xml.Name == "btnB")
-                {
-                    btnB = Convert.ToByte(xml.ReadElementContentAsInt());
-                    btntB = btnB;
-                }
+                readMode("D");
             }
-
-            this.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(BgA, BgR, BgG, BgB));
-            this.txtUrl.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(txtA, txtR, txtG, txtB));
-            this.txtSentences.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(txtA, txtR, txtG, txtB));
-            this.button.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(btnA, btnR, btnG, btnB));
-
+            else
+                readMode("L");
+            editColor();
         }
-
     }
 }

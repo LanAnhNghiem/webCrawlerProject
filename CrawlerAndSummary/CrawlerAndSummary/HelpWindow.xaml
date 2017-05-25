@@ -10,7 +10,7 @@
     <Grid>
         <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="269" VerticalAlignment="Top" Width="492" BorderBrush="{x:Null}">
             <TabItem Header="Help" Background="#FF8CBEBD">
-                <Grid Background="#FF413D4D" Margin="-9,-2,-4,-6" >
+                <Grid x:Name="background" Background="#FF413D4D" Margin="-9,-2,-4,-6" >
                     <Label x:Name="label" Content="1. Enter the keyword you want to search" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,26,0,0" Height="42" Width="472" FontSize="20" Foreground="#FF8CBEBD"/>
                     <Label x:Name="label_Copy" Content="2. List of 20 URLs will appear in the left box" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,68,0,0" Height="42" Width="472" FontSize="20" Foreground="#FF8CBEBD"/>
                     <Label x:Name="label_Copy1" Content="3. Waiting for data analysis" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,110,0,0" Height="42" Width="472" FontSize="20" Foreground="#FF8CBEBD"/>
@@ -50,7 +50,7 @@
                 </TabItem.Style>
             </TabItem>
             <TabItem Header="About Us" BorderBrush="{x:Null}" Margin="6,0,-6,0">
-                <Grid  Background="#FF413D4D" Margin="-9,-2,-4,-6">
+                <Grid x:Name="background2"  Background="#FF413D4D" Margin="-9,-2,-4,-6">
                     <Label x:Name="label_Copy3" Content="Students from University Of Information Technology" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,13,0,0" Height="42" Width="472" FontSize="20" Foreground="#FF8CBEBD"/>
                     <Label x:Name="label_Copy4" Content="1. Nghiem Lan Anh - 14520021" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="17,55,0,0" Height="42" Width="472" FontSize="20" Foreground="#FF8CBEBD"/>
                     <Label x:Name="label_Copy5" Content="3. Phan Hoang Tam - 14520799" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="17,139,0,0" Height="42" Width="472" FontSize="20" Foreground="#FF8CBEBD"/>

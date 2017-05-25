@@ -180,7 +180,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ThamSo.xml" />
+    <Resource Include="ThamSo.xml">
+      <SubType>Designer</SubType>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\copy.png" />
@@ -190,6 +192,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\analysis.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ThamSoEdit.xml">
+      <SubType>Designer</SubType>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

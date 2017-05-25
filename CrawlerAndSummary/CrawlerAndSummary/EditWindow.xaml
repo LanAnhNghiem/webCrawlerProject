@@ -5,16 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CrawlerAndSummary"
         mc:Ignorable="d"
-        Title="EditWindow" Height="300" Width="300" Closed="Window_Closed" Loaded="Window_Loaded">
-    <Grid>
-        <Label x:Name="label" Content="Số Url" HorizontalAlignment="Left" Margin="23,50,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label_Copy" Content="Số Câu" HorizontalAlignment="Left" Margin="17,118,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.672,3.309"/>
-        <TextBox x:Name="txtUrl" HorizontalAlignment="Left" Height="32" Margin="93,47,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="129"/>
-        <TextBox x:Name="txtSentences" HorizontalAlignment="Left" Height="32" Margin="94,107,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="129" RenderTransformOrigin="0.482,2.581"/>
-        <Button x:Name="button" Content="Edit" HorizontalAlignment="Left" Margin="113,227,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
-        <RadioButton x:Name="rdBackground" Content="màu nền" HorizontalAlignment="Left" Margin="192,187,0,0" VerticalAlignment="Top" Click="rdBackground_Click"/>
-        <RadioButton x:Name="rdButton" Content="button" HorizontalAlignment="Left" Margin="39,184,0,0" VerticalAlignment="Top" Click="rdButton_Click"/>
-        <RadioButton x:Name="rdTexboxt" Content="textbox" HorizontalAlignment="Left" Margin="120,186,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.006,0.409" Click="rdTexboxt_Click"/>
+        Title="EditWindow" Height="300" Width="300" Closed="Window_Closed" Background="#FF2F2C38" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+    <Grid AutomationProperties.Name="editWindow">
+        <Label x:Name="soURLLb" Content="URLs" HorizontalAlignment="Left" Margin="24,31,0,0" VerticalAlignment="Top" Foreground="#FF8CBEBD" RenderTransformOrigin="0,0.538" FontSize="15"/>
+        <Label x:Name="soCauLb" Content="Sentences" HorizontalAlignment="Left" Margin="24,76,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.672,3.309" Foreground="#FF8CBEBD" FontSize="15"/>
+        <TextBox x:Name="txtUrl" Background="#FF2F2C38" Foreground="#FFFFFFFF" HorizontalAlignment="Left" Height="23" Margin="113,34,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="144" BorderBrush="#FF474747"/>
+        <TextBox x:Name="txtSentences" Background="#FF2F2C38" Foreground="#FFCDCDCD" HorizontalAlignment="Left" Height="23" Margin="113,83,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="144" RenderTransformOrigin="0.482,2.581" BorderBrush="#FF474747"/>
+        <Button x:Name="editBtn" Content="Edit" Background="#FFF06060" Foreground="#FFFFFFFF" HorizontalAlignment="Left" Margin="113,233,0,0" VerticalAlignment="Top" Width="75" Click="editBtn_Click"/>
+        <Label x:Name="BackgroundLb" Content="Background" Margin="24,124,171,109" Foreground="#FF8CBEBD" FontSize="15"/>
+        <GroupBox x:Name="groupBox" Header="Mode" HorizontalAlignment="Left" Margin="32,162,0,0" VerticalAlignment="Top" Height="55" Width="225" BorderBrush="#FF474747" Foreground="#FFF06060" BorderThickness="0.2,0.3,0.2,0.2" FontSize="10" Background="#FF2F2C38"/>
+        <RadioButton x:Name="lightRb" Content="Light" HorizontalAlignment="Left" Margin="48,190,0,0" VerticalAlignment="Top" Foreground="#FF8CBEBD" Click="lightRb_Click"/>
+        <RadioButton x:Name="darkRb" Content="Dark" HorizontalAlignment="Left" Margin="157,190,0,0" VerticalAlignment="Top" Foreground="#FF8CBEBD" Click="darkRb_Click"/>
 
     </Grid>
 </Window>

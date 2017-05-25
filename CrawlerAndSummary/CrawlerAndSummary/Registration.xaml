@@ -8,13 +8,13 @@
         Title="Registration" Height="360" Width="400" Icon="Resources/analysis.ico" Background="#FF2F2C38" WindowStartupLocation="CenterScreen">
     <Grid>
         <GroupBox x:Name="groupBox1" Header="User's Information" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="167" Width="363" BorderBrush="#FF474747" Foreground="#FFF06060" BorderThickness="0.2,0.3,0.2,0.2" FontSize="15">
-            <Label x:Name="label_Copy" Content="Your email :" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="#FF8CBEBD"/>
+            <Label x:Name="lbEmail" Content="Your email :" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="#FF8CBEBD"/>
         </GroupBox>
-        <Label x:Name="label_Copy1" Content="Trial days :" HorizontalAlignment="Left" Margin="27,86,0,0" VerticalAlignment="Top" Foreground="#FF8CBEBD" FontSize="15"/>
+        <Label x:Name="lbDays" Content="Trial days :" HorizontalAlignment="Left" Margin="27,86,0,0" VerticalAlignment="Top" Foreground="#FF8CBEBD" FontSize="15"/>
         <TextBox x:Name="emailTxtBox" HorizontalAlignment="Left" Height="23" Margin="141,45,0,0" Text="" VerticalAlignment="Top" Width="207" Background="#FF2F2C38" Foreground="White" FontSize="14" BorderBrush="#FF474747" MaxLines="1" MaxLength="1000" Padding="3,0,2,0" TextChanged="emailTxtBox_TextChanged" TabIndex="1"/>
         <Button x:Name="getKeyBtn" Content="Get Key" HorizontalAlignment="Left" Margin="273,137,0,0" VerticalAlignment="Top" Width="75" Background="#FFF06060" Foreground="White" Click="getKeyBtn_Click" TabIndex="1"/>
         <GroupBox x:Name="groupBox2" Header="Registration" HorizontalAlignment="Left" Margin="10,182,0,0" VerticalAlignment="Top" Height="122" Width="363" BorderBrush="#FF474747" Foreground="#FFF06060" BorderThickness="0.2,0.3,0.2,0.2" FontSize="15">
-            <Label x:Name="label" Content="Serial Key :" HorizontalAlignment="Left" Margin="10,16,0,0" VerticalAlignment="Top" Foreground="#FF8CBEBD"/>
+            <Label x:Name="lbKey" Content="Serial Key :" HorizontalAlignment="Left" Margin="10,16,0,0" VerticalAlignment="Top" Foreground="#FF8CBEBD"/>
         </GroupBox>
         <TextBox x:Name="keyTxtBox" HorizontalAlignment="Left" Height="23" Margin="141,223,0,0" Text="" VerticalAlignment="Top" Width="207" Background="#FF2F2C38" Foreground="White" FontSize="14" BorderBrush="#FF474747" MaxLines="1" MaxLength="1000" TabIndex="4"/>
         <Button x:Name="registerBtn" Content="Register" HorizontalAlignment="Left" Margin="273,269,0,0" VerticalAlignment="Top" Width="75" Background="#FFF06060" Foreground="White" Click="registerBtn_Click" TabIndex="5"/>

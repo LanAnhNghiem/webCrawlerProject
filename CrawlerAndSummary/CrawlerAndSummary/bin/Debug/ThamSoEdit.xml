@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ThamSo>
-<tmInterval>3000</tmInterval>
-<keyrg>omFDgdAsRAmshCbOhXoIKwsebnAEp14idUOjsn2UxGevxvi8Y8</keyrg>
-<durationTimerg>0.5</durationTimerg>
-<checkemail>Please check your email to get Your Serial Key.</checkemail>
-<enteremail>Enter your email.</enteremail>
-<enterday>Enter trial days</enterday>
-<validemail>Valid Email</validemail>
-<invalidemail>Invalid Email</invalidemail>
-<validday>Day only contains number from 1 to 99</validday>
-<invalidday>Valid Day</invalidday>
-<validkey>Valid Serial Key.</validkey>
-<invalidkey>Invalid Serial Key.</invalidkey>
-<messagesuss>Success</messagesuss>
-<messageerr>Error</messageerr>
+  <BgValueD>#FF2F2C38</BgValueD>
+  <tbFgValueD>#FFFFFFFF</tbFgValueD>
+  <lbFgValueD>#FF8CBEBD</lbFgValueD>
+  <btnBgValueD>#FFF06060</btnBgValueD>
+  <BgValueL>#FFE3F2FD</BgValueL>
+  <tbFgValueL>#FF2F2C38</tbFgValueL>
+  <lbFgValueL>#FF34495E</lbFgValueL>
+  <btnBgValueL>#FF2196F3</btnBgValueL>
+  <tmInterval>3000</tmInterval>
+  <keyrg>omFDgdAsRAmshCbOhXoIKwsebnAEp14idUOjsn2UxGevxvi8Y8</keyrg>
+  <durationTimerg>0.5</durationTimerg>
+  <checkemail>Please check your email to get Your Serial Key.</checkemail>
+  <enteremail>Enter your email.</enteremail>
+  <enterday>Enter trial days</enterday>
+  <validemail>Valid Email</validemail>
+  <invalidemail>Invalid Email</invalidemail>
+  <validday>Day only contains number from 1 to 99</validday>
+  <invalidday>Valid Day</invalidday>
+  <validkey>Valid Serial Key.</validkey>
+  <invalidkey>Invalid Serial Key.</invalidkey>
+  <messagesuss>Success</messagesuss>
+  <messageerr>Error</messageerr>
 </ThamSo>
