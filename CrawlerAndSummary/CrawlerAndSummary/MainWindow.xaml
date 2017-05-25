@@ -18,7 +18,7 @@
         <WindowsFormsHost Width="20" Height="20" Margin="270.135,10,10,439" Visibility="Hidden" Grid.Column="1">
             <wf:WebBrowser x:Name="webBrowser" Height="20" Margin="830,0,0,0" Width="20" DocumentCompleted="webBrowser_DocumentCompleted"/>
         </WindowsFormsHost>
-        <Label x:Name="label" Margin="-2,0,10,0" Height="50" FontSize="30" Foreground="#FFF3B562" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Label x:Name="label" Margin="-2,0,10,0" Height="50" FontSize="30" Foreground="#FFF3B562" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Top" Grid.ColumnSpan="2" Content="Vietnamese Text Summarization"/>
         <TextBox x:Name="searchTxtBox" HorizontalAlignment="Left" Height="24" Margin="59,70,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="250" Background="#FF2F2C38" Foreground="White" FontSize="15" BorderBrush="#FF474747" SelectionBrush="#FFF06060" PreviewKeyDown="searchTxtBox_PreviewKeyDown" TextChanged="searchTxtBox_TextChanged"/>
         <Button x:Name="searchBtn" Content="Search" HorizontalAlignment="Left" Margin="344,69,0,0" VerticalAlignment="Top" Width="75" Background="#FFF06060" Foreground="White" FontSize="15" Click="searchBtn_Click"/>
         <Label x:Name="URLLb" Content="URL list" HorizontalAlignment="Left" Margin="35,109,0,0" VerticalAlignment="Top" Foreground="#FF8CBEBD" FontSize="18"/>

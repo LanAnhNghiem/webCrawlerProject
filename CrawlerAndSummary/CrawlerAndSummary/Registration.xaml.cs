@@ -272,6 +272,7 @@ namespace CrawlerAndSummary
             else
                 return false;
         }
+
         private bool isValidKey(string key)
         {
             Regex regex = new Regex("^[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$");
@@ -303,6 +304,7 @@ namespace CrawlerAndSummary
 
             }
         }
+
         private void sendInfo()
         {
             string infoPC = cpuId() + biosId() + baseId();
@@ -337,7 +339,7 @@ namespace CrawlerAndSummary
 
         private void keyTxtBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (isValidKey(keyTxtBox.Text))
+            if (isValidKey(keyTxtBox.Text.Trim()))
                 keyLb.Content = validkey;
             else
                 keyLb.Content = invalidkey;

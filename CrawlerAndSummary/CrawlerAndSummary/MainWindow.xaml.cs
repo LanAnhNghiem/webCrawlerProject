@@ -214,7 +214,7 @@ namespace CrawlerAndSummary
         {
             String link;
 
-            link = "https://www.google.com.vn/#q=" + searchTxtBox.Text + "&num=" + SoUrl.ToString()+ "&tbm=nws";
+            link = "https://www.google.com.vn/#q=" + searchTxtBox.Text + "&num=" + SoUrl.ToString();
 
             webBrowser.Navigate(link);
             tm = new System.Windows.Forms.Timer();
