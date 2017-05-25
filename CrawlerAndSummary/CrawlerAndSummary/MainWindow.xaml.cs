@@ -213,6 +213,7 @@ namespace CrawlerAndSummary
         private void loadingPage()
         {
             String link;
+
             link = "https://www.google.com.vn/#q=" + searchTxtBox.Text + "&num=" + SoUrl.ToString()+ "&tbm=nws";
 
             webBrowser.Navigate(link);
@@ -234,7 +235,6 @@ namespace CrawlerAndSummary
         void listLink()
         {
             HtmlElementCollection link = webBrowser.Document.Links ;
-
             string[] lines = File.ReadAllLines("link.txt");
             
             if (link.Count > 0)
