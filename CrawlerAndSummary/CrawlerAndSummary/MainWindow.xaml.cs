@@ -234,28 +234,29 @@ namespace CrawlerAndSummary
         void listLink()
         {
             HtmlElementCollection link = webBrowser.Document.Links ;
-            String url = "";
+
             string[] lines = File.ReadAllLines("link.txt");
-     
+            
             if (link.Count > 0)
             {
                 for (int i = 0; i < link.Count; i++)
                 {
                     if (link[i].OuterHtml.Contains("onmousedown") && !link[i].OuterHtml.Contains("class=\"fl\"") && !link[i].OuterHtml.Contains("google"))
                     {
-                        url = System.Uri.UnescapeDataString(link[i].GetAttribute("href"));
+                        string url = Uri.UnescapeDataString(link[i].GetAttribute("href"));
+
                         int j;
                         for(j = 0; j < lines.Count(); j++)
                         {
-                            if(url.Contains(lines[j]))
+                            if (url.Contains(lines[j]) || url.EndsWith("/"))
                             {
+                                j = -1;
                                 break;
                             }
                         }
 
                         if(j==lines.Count())
                         {
-
                             listBox.Items.Add(url);
                             listLinks.Add(url);
                         }
