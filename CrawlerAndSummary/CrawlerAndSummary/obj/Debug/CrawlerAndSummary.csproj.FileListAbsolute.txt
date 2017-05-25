@@ -38,3 +38,6 @@ E:\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\obj\Debug\CrawlerAndSum
 E:\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\obj\Debug\CrawlerAndSummary.exe.licenses
 E:\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\obj\Debug\CrawlerAndSummary.exe
 E:\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\obj\Debug\CrawlerAndSummary.pdb
+C:\Users\Admin\GitHub\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\bin\Debug\CrawlerAndSummary.exe.config
+C:\Users\Admin\GitHub\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\obj\Debug\CrawlerAndSummary.exe
+C:\Users\Admin\GitHub\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\obj\Debug\CrawlerAndSummary.pdb

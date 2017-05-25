@@ -205,9 +205,7 @@ namespace CrawlerAndSummary
         {
             if (e.Key == Key.Enter)
             {
-                listBox.Items.Clear();
-                resultTxtBox.Clear();
-                loadingPage();
+                searchBtn_Click(sender, e);
             }
         }
         private void loadingPage()
@@ -248,11 +246,8 @@ namespace CrawlerAndSummary
                         int j;
                         for(j = 0; j < lines.Count(); j++)
                         {
-                            if (url.Contains(lines[j]) || url.EndsWith("/"))
-                            {
-                                j = -1;
+                            if (url.Contains(lines[j]))
                                 break;
-                            }
                         }
 
                         if(j==lines.Count())
@@ -292,7 +287,7 @@ namespace CrawlerAndSummary
             string text = "";
 
             string HTML = doc.DocumentNode.InnerHtml;
-            string[] pattern = new string[] { @"<head>[^>]*>[\s\S]*?</head>", @"<ul[^>]*>[\s\S]*?</ul>", @"<script[^>]*>[\s\S]*?</script>", @"<style[^>]*>[\s\S]*?</style>", @"<!--[\s\S]*?-->", @"<form[^>]*>[\s\S]*?</form>", @"&[\s\S]*?;", @"<footer[^>]*>[\s\S]*?</footer>", @"<div class=" + "\"footer\">" + @"[^>]*>[\s\S]*?</div>" };
+            string[] pattern = new string[] { @"<head>[^>]*>[\s\S]*?</head>", @"<header[^>]*>[\s\S]*?</header>", @"<ul[^>]*>[\s\S]*?</ul>", @"<script[^>]*>[\s\S]*?</script>", @"<style[^>]*>[\s\S]*?</style>", @"<!--[\s\S]*?-->", @"<form[^>]*>[\s\S]*?</form>", @"&[\s\S]*?;", @"<footer[^>]*>[\s\S]*?</footer>", @"<div class=" + "\"footer\">" + @"[^>]*>[\s\S]*?</div>" };
             Regex regex = new Regex(string.Join("|", pattern), RegexOptions.IgnoreCase);
             HTML = regex.Replace(HTML, "");
             doc.LoadHtml(HTML);
