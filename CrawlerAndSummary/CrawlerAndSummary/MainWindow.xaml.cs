@@ -397,7 +397,7 @@ namespace CrawlerAndSummary
             flatedit = flatedit + 1;
             if(flatedit==1)
             {
-                EditWindow edit = new EditWindow();
+                EditWindow edit = new EditWindow(this);
                 edit.Show();
 
             }

@@ -22,6 +22,7 @@ namespace CrawlerAndSummary
     /// </summary>
     public partial class EditWindow : Window
     {
+        MainWindow mainWin = null;
         string urlLoad;
         string soCauLoad;
         string messagesucc;
@@ -118,9 +119,10 @@ namespace CrawlerAndSummary
             xmledit.Close();
         }
         
-        public EditWindow()
+        public EditWindow(MainWindow main)
         {
             InitializeComponent();
+            mainWin = main;
             readXml();
             readURL_Sentences();
             txtUrl.Text = urlLoad;
@@ -182,17 +184,17 @@ namespace CrawlerAndSummary
         private void editMainColor()
         {
             BrushConverter brushConverter = new BrushConverter();
-            ((MainWindow)System.Windows.Application.Current.MainWindow).Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
-            ((MainWindow)System.Windows.Application.Current.MainWindow).resultTxtBox.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
-            ((MainWindow)System.Windows.Application.Current.MainWindow).resultTxtBox.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
-            ((MainWindow)System.Windows.Application.Current.MainWindow).searchTxtBox.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
-            ((MainWindow)System.Windows.Application.Current.MainWindow).searchTxtBox.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
-            ((MainWindow)System.Windows.Application.Current.MainWindow).listBox.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
-            ((MainWindow)System.Windows.Application.Current.MainWindow).listBox.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
-            ((MainWindow)System.Windows.Application.Current.MainWindow).searchBtn.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(btnBgValue);
-            ((MainWindow)System.Windows.Application.Current.MainWindow).searchBtn.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
-            ((MainWindow)System.Windows.Application.Current.MainWindow).URLLb.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
-            ((MainWindow)System.Windows.Application.Current.MainWindow).ResultLb.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
+            mainWin.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
+            mainWin.resultTxtBox.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
+            mainWin.resultTxtBox.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
+            mainWin.searchTxtBox.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
+            mainWin.searchTxtBox.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
+            mainWin.listBox.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
+            mainWin.listBox.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
+            mainWin.searchBtn.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(btnBgValue);
+            mainWin.searchBtn.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
+            mainWin.URLLb.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
+            mainWin.ResultLb.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
