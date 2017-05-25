@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CrawlerAndSummary"
         mc:Ignorable="d"
-        Title="EditWindow" Height="300" Width="300" Closed="Window_Closed" Background="#FF2F2C38" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+        Title="EditWindow" Height="300" Width="300" Closed="Window_Closed" Background="#FF2F2C38" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" Icon="Resources/analysis.ico">
     <Grid AutomationProperties.Name="editWindow">
         <Label x:Name="soURLLb" Content="URLs" HorizontalAlignment="Left" Margin="24,31,0,0" VerticalAlignment="Top" Foreground="#FF8CBEBD" RenderTransformOrigin="0,0.538" FontSize="15"/>
         <Label x:Name="soCauLb" Content="Sentences" HorizontalAlignment="Left" Margin="24,76,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.672,3.309" Foreground="#FF8CBEBD" FontSize="15"/>
