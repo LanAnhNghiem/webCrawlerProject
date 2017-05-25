@@ -4,28 +4,16 @@
 winexe
 C#
 .cs
-<<<<<<< HEAD
 E:\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\obj\Debug\
-=======
-C:\Users\Admin\GitHub\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\obj\Debug\
->>>>>>> origin/master
 CrawlerAndSummary
 none
 false
 DEBUG;TRACE
-<<<<<<< HEAD
 E:\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\App.xaml
 4-1343725834
 
 8-1963543287
 87-1299388041
-=======
-C:\Users\Admin\GitHub\webCrawlerProject\CrawlerAndSummary\CrawlerAndSummary\App.xaml
-4-1343725834
-
-8-1963543287
-87748121635
->>>>>>> origin/master
 EditWindow.xaml;HelpWindow.xaml;MainWindow.xaml;Registration.xaml;
 
 False
