@@ -41,6 +41,15 @@ namespace CrawlerAndSummary
             InitializeComponent();
             socketIOManager();
             readXml();
+            if(Properties.Settings.Default.Color == true)
+            {
+                readMode("D");
+            }
+            else
+            {
+                readMode("L");
+            }
+            editMainColor();
         }
 
         private void readXml()
@@ -87,6 +96,7 @@ namespace CrawlerAndSummary
                     invalidkey = xmledit.ReadElementContentAsString();
                 }
             }
+            xmledit.Close();
         }
         private void readMode(string mode)
         {
@@ -116,16 +126,19 @@ namespace CrawlerAndSummary
         {
             BrushConverter brushConverter = new BrushConverter();
             this.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
-            this.resultTxtBox.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
-            this.resultTxtBox.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
-            this.searchTxtBox.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
-            this.searchTxtBox.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
-            this.listBox.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
-            this.listBox.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
-            this.searchBtn.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(btnBgValue);
-            this.searchBtn.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
-            this.URLLb.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
-            this.ResultLb.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
+            this.lbEmail.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(lbFgValue);
+            this.lbDays.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(lbFgValue);
+            this.lbKey.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(lbFgValue);
+            this.emailTxtBox.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
+            this.emailTxtBox.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
+            this.daysTxtBox.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
+            this.daysTxtBox.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
+            this.keyTxtBox.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(backgroundValue);
+            this.keyTxtBox.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
+            this.registerBtn.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(btnBgValue);
+            this.registerBtn.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
+            this.getKeyBtn.Background = (System.Windows.Media.Brush)brushConverter.ConvertFrom(btnBgValue);
+            this.getKeyBtn.Foreground = (System.Windows.Media.Brush)brushConverter.ConvertFrom(tbFgValue);
         }
         private void socketIOManager()
         {
@@ -252,9 +265,17 @@ namespace CrawlerAndSummary
 
         private bool isValidDay(string day)
         {
-            //hardcode
             Regex regex = new Regex("^[1-9]\\d*$");
             Match match = regex.Match(day);
+            if (match.Success)
+                return true;
+            else
+                return false;
+        }
+        private bool isValidKey(string key)
+        {
+            Regex regex = new Regex("^[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$");
+            Match match = regex.Match(key);
             if (match.Success)
                 return true;
             else
@@ -314,10 +335,17 @@ namespace CrawlerAndSummary
             }
         }
 
+        private void keyTxtBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (isValidKey(keyTxtBox.Text))
+                keyLb.Content = validkey;
+            else
+                keyLb.Content = invalidkey;
+        }
         private void registerBtn_Click(object sender, RoutedEventArgs e)
         {
             string dataString = "";
-            if (!string.IsNullOrEmpty((string)Properties.Settings.Default.ID) || !string.IsNullOrWhiteSpace(keyTxtBox.Text.Trim()))
+            if (!string.IsNullOrEmpty((string)Properties.Settings.Default.ID) || !isValidKey(keyTxtBox.Text.Trim()))
             {
                 socket.Emit("check-valid-key", (keyTxtBox.Text.Trim() + "*" + Properties.Settings.Default.ID));
                 socket.On("check-valid-key-result", data => {
@@ -330,15 +358,20 @@ namespace CrawlerAndSummary
                 else
                 {
                     keyLb.Content = validkey;
-                    this.Hide();
-                    MainWindow main = new MainWindow();
-                    main.Show();
-                    this.Close();
+                    changeWindow();
                 }
             }
             else
                 keyLb.Content = invalidkey;
         }
+        private void changeWindow()
+        {
+            this.Hide();
+            MainWindow main = new MainWindow();
+            main.Show();
+            this.Close();
+        }
+
         
     }
 }

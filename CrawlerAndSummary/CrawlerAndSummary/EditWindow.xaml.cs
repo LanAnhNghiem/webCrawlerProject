@@ -67,6 +67,7 @@ namespace CrawlerAndSummary
                 xml.Flush();
                 xml.Close();
                 editColor();
+                editMainColor();
                 MessageBox.Show(messagesucc);
                 flatedit = 1;
             }
@@ -169,61 +170,13 @@ namespace CrawlerAndSummary
             else
                 return false;
         }
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            string soUrl = txtUrl.Text.Trim();
-            string soCau = txtSentences.Text.Trim();
-
-            if (String.IsNullOrWhiteSpace(soUrl) || String.IsNullOrWhiteSpace(soCau) || soUrl=="0" || soCau == "0" || !isNumber(soUrl) || !isNumber(soCau))
-            {
-                MessageBox.Show(messageerr);
-            }
-            else
-            {
-               
-                XmlTextWriter xml = new XmlTextWriter("ThamSo.xml", Encoding.UTF8);
-
-                xml.WriteStartDocument();
-                xml.WriteStartElement("ThamSo");
-                xml.WriteElementString("SoUrl", soUrl);
-                xml.WriteElementString("SoCau", soCau);
-                xml.WriteEndElement();
-                xml.WriteEndDocument();
-                xml.Flush();
-                xml.Close();
-
-                XmlTextWriter xml_color = new XmlTextWriter("Color.xml", Encoding.UTF8);
-
-                //xml_color.WriteStartDocument();
-                //xml_color.WriteStartElement("ThamSo");
-                //xml_color.WriteElementString("BgA", BgA.ToString());
-                //xml_color.WriteElementString("BgR", BgR.ToString());
-                //xml_color.WriteElementString("BgG", BgG.ToString());
-                //xml_color.WriteElementString("BgB", BgB.ToString());
-                //xml_color.WriteElementString("txtA", txtA.ToString());
-                //xml_color.WriteElementString("txtR", txtR.ToString());
-                //xml_color.WriteElementString("txtG", txtG.ToString());
-                //xml_color.WriteElementString("txtB", txtB.ToString());
-                //xml_color.WriteElementString("btnA", btnA.ToString());
-                //xml_color.WriteElementString("btnR", btnR.ToString());
-                //xml_color.WriteElementString("btnG", btnG.ToString());
-                //xml_color.WriteElementString("btnB", btnB.ToString());
-                //xml_color.WriteEndElement();
-                //xml_color.WriteEndDocument();
-                //xml_color.Flush();
-                //xml_color.Close();
-
-                MessageBox.Show(messagesucc);
-                flatedit = 1;
-            }
-        }
 
         private void Window_Closed(object sender, EventArgs e)
         {
             MainWindow.flatedit = 0;
             if(flatedit==1)
             {
-                editMainColor();
+                //editMainColor();
             }
         }
         private void editMainColor()

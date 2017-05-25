@@ -53,6 +53,7 @@ namespace CrawlerAndSummary
         {
             InitializeComponent();
             this.ResizeMode = ResizeMode.CanMinimize;
+            checkRegistration();
         }
 
         private void MainWindow1_Loaded(object sender, RoutedEventArgs e)
@@ -97,9 +98,15 @@ namespace CrawlerAndSummary
                 socket.Emit("client-check-registration", (Properties.Settings.Default.ID + "*" + DateTime.Now));
                 socket.On("server-reply-registration", data =>
                 {
+                    string idString = (string)Properties.Settings.Default.ID;
+                    if(idString.Substring(idString.Length - 1) == "0")
+                    {
+                        Properties.Settings.Default.ID = Properties.Settings.Default.ID.Remove(idString.Length - 2);
+                        Properties.Settings.Default.Save();
+                    }
                     Properties.Settings.Default.ID = Properties.Settings.Default.ID + "*" + data.ToString();
                     Properties.Settings.Default.Save();
-                    string idString = (string)Properties.Settings.Default.ID;
+                    
                     if (!String.IsNullOrEmpty(idString))
                     {
                         if (!idString.Contains("*") && idString.Substring(idString.Length - 1) != "0")
@@ -157,13 +164,20 @@ namespace CrawlerAndSummary
         }
         private void changeWindow()
         {
-            this.Hide();
-            Registration reg = new Registration();
-            reg.Show();
-            reg.Closing += (sender, args) =>
+            try
             {
-                this.Close();
-            };
+                this.Hide();
+                Registration reg = new Registration();
+                reg.Show();
+                reg.Closing += (sender, args) =>
+                {
+                    this.Close();
+                };
+            }catch
+            {
+
+            }
+            
         }
         private void searchBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -199,11 +213,11 @@ namespace CrawlerAndSummary
         private void loadingPage()
         {
             String link;
-            link = "https://www.google.com.vn/#q=" + searchTxtBox.Text + "&num=" + SoUrl.ToString();
+            link = "https://www.google.com.vn/#q=" + searchTxtBox.Text + "&num=" + SoUrl.ToString()+ "&tbm=nws";
 
             webBrowser.Navigate(link);
             tm = new System.Windows.Forms.Timer();
-            tm.Interval = tmInterval;//hardcode
+            tm.Interval = tmInterval;
             tm.Tick += new EventHandler(tm_Tick);
 
         }
@@ -220,9 +234,7 @@ namespace CrawlerAndSummary
         void listLink()
         {
             HtmlElementCollection link = webBrowser.Document.Links ;
-            //List<string> titles = new List<string>();
             String url = "";
-            //String title = "";
             string[] lines = File.ReadAllLines("link.txt");
      
             if (link.Count > 0)
@@ -237,25 +249,16 @@ namespace CrawlerAndSummary
                         {
                             if(url.Contains(lines[j]))
                             {
-
                                 break;
-
                             }
                         }
 
-                        if(j==21)
+                        if(j==lines.Count())
                         {
 
                             listBox.Items.Add(url);
                             listLinks.Add(url);
                         }
-                        //if(!url.StartsWith("https://www.youtube") && !url.EndsWith("/"))
-                        //{
-                        //    listBox.Items.Add(url);
-                        //    listLinks.Add(url);
-                        //}
-                        //title = System.Uri.UnescapeDataString(link[i].InnerHtml);
-                        //titles.Add(title);
                     }
                     
                     if (listLinks.Count == SoUrl)
@@ -288,7 +291,6 @@ namespace CrawlerAndSummary
             string text = "";
 
             string HTML = doc.DocumentNode.InnerHtml;
-            //hardcode chuỗi regular exception
             string[] pattern = new string[] { @"<head>[^>]*>[\s\S]*?</head>", @"<ul[^>]*>[\s\S]*?</ul>", @"<script[^>]*>[\s\S]*?</script>", @"<style[^>]*>[\s\S]*?</style>", @"<!--[\s\S]*?-->", @"<form[^>]*>[\s\S]*?</form>", @"&[\s\S]*?;", @"<footer[^>]*>[\s\S]*?</footer>", @"<div class=" + "\"footer\">" + @"[^>]*>[\s\S]*?</div>" };
             Regex regex = new Regex(string.Join("|", pattern), RegexOptions.IgnoreCase);
             HTML = regex.Replace(HTML, "");
@@ -336,7 +338,6 @@ namespace CrawlerAndSummary
         }
         private void summarize()
         {
-            //hardcode key "omFDgdAsRAmshCbOhXoIKwsebnAEp14idUOjsn2UxGevxvi8Y8"
             HttpResponse<String> response = Unirest.post("https://textanalysis-text-summarization.p.mashape.com/text-summarizer-text")
                 .header("X-Mashape-Authorization", key)
                 //.header("Content-Type", "application/x-www-form-urlencoded")
@@ -370,7 +371,6 @@ namespace CrawlerAndSummary
         }
         private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            //hardcode 0.5s
             Duration duration = new Duration(TimeSpan.FromSeconds(timespan));
             DoubleAnimation animation = new DoubleAnimation(e.ProgressPercentage, duration);
             processBar.BeginAnimation(System.Windows.Controls.ProgressBar.ValueProperty, animation);
